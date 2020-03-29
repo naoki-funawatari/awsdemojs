@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+div#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+div#root.unauthenticated {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+div#root.authenticated {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
