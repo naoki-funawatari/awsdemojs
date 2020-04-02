@@ -20,10 +20,10 @@ export default ({ pathname }) => {
     history.push({ pathname: '/' });
   }
   if (pathname === '/') {
-    return (<Button variant="contained" color="primary" onClick={signUp}>SIGN UP</Button>);
+    return (<Button variant="outlined" style={{ backgroundColor: 'white' }} onClick={signUp}>SIGN UP</Button>);
   }
   if (pathname === '/signup') {
-    return (<Button variant="contained" color="primary" onClick={signIn}>SIGN IN</Button>);
+    return (<Button variant="outlined" style={{ backgroundColor: 'white' }} onClick={signIn}>SIGN IN</Button>);
   }
-  return (<Button variant="contained" color="primary" onClick={signOut}>SIGN OUT</Button>);
+  return (<Button variant="outlined" style={{ backgroundColor: 'white' }} onClick={signOut}>SIGN OUT</Button>);
 }

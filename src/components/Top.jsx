@@ -23,6 +23,7 @@ import { mainListItems, secondaryListItems } from '../dashboard/listItems';
 import Chart from '../dashboard/Chart';
 import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
+import TransitionButton from '../components/TransitionButton';
 
 const Copyright = () => {
   return (
@@ -74,7 +75,10 @@ const useStyles = makeStyles((theme) => ({
   menuButtonHidden: {
     display: 'none',
   },
-  title: {
+  title1: {
+    flexShrink: 1,
+  },
+  title2: {
     flexGrow: 1,
   },
   drawerPaper: {
@@ -163,7 +167,7 @@ export default () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title1}>
             {user.id ? `${user.id}  -  ${user.name}` : ''}
           </Typography>
           <IconButton color="inherit">
@@ -171,6 +175,8 @@ export default () => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title2}>　</Typography>
+          <TransitionButton pathname={'/top'} />
         </Toolbar>
       </AppBar>
       <Drawer

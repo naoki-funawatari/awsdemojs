@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from 'react-router-dom';
 import { deleteToken } from './stores/token';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Main from './components/Main';
 // import './scss/style.scss';
 
