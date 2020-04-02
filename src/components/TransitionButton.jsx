@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { deleteToken } from '../stores/token';
+import { Button } from '@material-ui/core';
 
 export default ({ pathname }) => {
   const dispatch = useDispatch();
@@ -19,10 +20,10 @@ export default ({ pathname }) => {
     history.push({ pathname: '/' });
   }
   if (pathname === '/') {
-    return (<button type="button" onClick={signUp}>SIGN UP</button>);
+    return (<Button variant="contained" color="primary" onClick={signUp}>SIGN UP</Button>);
   }
   if (pathname === '/signup') {
-    return (<button type="button" onClick={signIn}>SIGN IN</button>);
+    return (<Button variant="contained" color="primary" onClick={signIn}>SIGN IN</Button>);
   }
-  return (<button type="button" onClick={signOut}>SIGN OUT</button>);
+  return (<Button variant="contained" color="primary" onClick={signOut}>SIGN OUT</Button>);
 }

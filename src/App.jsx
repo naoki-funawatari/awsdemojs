@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { deleteToken } from './stores/token';
 import Header from './components/Header';
 import Main from './components/Main';
-import './scss/style.scss';
+// import './scss/style.scss';
 
 export default () => {
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ export default () => {
 
   return (
     <>
-      <Header />
       <Main />
     </>
   );
