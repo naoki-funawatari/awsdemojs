@@ -11,7 +11,7 @@ export default () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(updateUserAsync(token));
-  }, [token]);
+  }, [dispatch, token]);
 
   return (
     <header>
