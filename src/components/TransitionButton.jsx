@@ -13,13 +13,13 @@ export default ({ pathname }) => {
   }
   const signIn = () => {
     dispatch(deleteToken());
-    history.push({ pathname: '/' });
+    history.push({ pathname: '/signin' });
   }
   const signOut = () => {
     dispatch(deleteToken());
-    history.push({ pathname: '/' });
+    history.push({ pathname: '/signin' });
   }
-  if (pathname === '/') {
+  if (pathname === '/signin') {
     return (<Button variant="outlined" style={{ backgroundColor: 'white' }} onClick={signUp}>SIGN UP</Button>);
   }
   if (pathname === '/signup') {

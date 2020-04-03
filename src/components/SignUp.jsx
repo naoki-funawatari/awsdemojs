@@ -93,7 +93,7 @@ export default () => {
       inputId.current.value = '';
       inputPassword.current.value = '';
       inputName.current.value = '';
-      history.push({ pathname: '/', state: { id } });
+      history.push({ pathname: '/signin', state: { id } });
     }
   }
   const persist = e => {
@@ -170,7 +170,7 @@ export default () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/">
+              <Link to="/signin">
                 Already have an account? Sign in
               </Link>
             </Grid>

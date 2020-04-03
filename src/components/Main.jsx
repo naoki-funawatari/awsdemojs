@@ -8,9 +8,9 @@ export default () => {
   return (
     <main>
       <Switch>
-        <Route exact path="/" component={SignIn} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/top" component={Top} />
+        <Route exact path="/" component={Top} />
       </Switch>
     </main>
   );

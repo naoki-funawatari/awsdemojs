@@ -16,9 +16,9 @@ export default () => {
     ? 'authenticated'
     : 'unauthenticated';
 
-  if ((pathname !== '/' && pathname !== '/signup') && !isAuthenticated(token)) {
+  if ((pathname !== '/signin' && pathname !== '/signup') && !isAuthenticated(token)) {
     dispatch(deleteToken());
-    history.push({ pathname: '/' });
+    history.push({ pathname: '/signin' });
   }
 
   return (

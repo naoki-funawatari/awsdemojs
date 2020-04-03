@@ -94,7 +94,7 @@ export default ({ location }) => {
       const json = await res.json();
       const token = json.access_token;
       dispatch(updateToken(token));
-      history.push({ pathname: '/top' });
+      history.push({ pathname: '/' });
     }
   }
   const persist = e => {

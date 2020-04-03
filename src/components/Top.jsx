@@ -176,7 +176,7 @@ export default () => {
             </Badge>
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title2}>　</Typography>
-          <TransitionButton pathname={'/top'} />
+          <TransitionButton pathname={'/'} />
         </Toolbar>
       </AppBar>
       <Drawer
