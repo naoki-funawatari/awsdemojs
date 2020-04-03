@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,6 +24,7 @@ import Chart from '../dashboard/Chart';
 import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
 import TransitionButton from '../components/TransitionButton';
+import Resource from './Resource';
 
 const Copyright = () => {
   return (
@@ -192,33 +193,40 @@ export default () => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>{mainListItems()}</List>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
+          <Switch>
+            <Route exact path="/">
+              <Grid container spacing={3}>
+                {/* Chart */}
+                <Grid item xs={12} md={8} lg={9}>
+                  <Paper className={fixedHeightPaper}>
+                    <Chart />
+                  </Paper>
+                </Grid>
+                {/* Recent Deposits */}
+                <Grid item xs={12} md={4} lg={3}>
+                  <Paper className={fixedHeightPaper}>
+                    <Deposits />
+                  </Paper>
+                </Grid>
+                {/* Recent Orders */}
+                <Grid item xs={12}>
+                  <Paper className={classes.paper}>
+                    <Orders />
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Route>
+            <Route path="/resource">
+              <Resource />
+            </Route>
+          </Switch>
           <Box pt={4}>
             <Copyright />
           </Box>

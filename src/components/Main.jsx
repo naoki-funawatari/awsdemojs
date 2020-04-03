@@ -11,6 +11,7 @@ export default () => {
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route exact path="/" component={Top} />
+        <Route path="/resource" component={Top} />
       </Switch>
     </main>
   );
