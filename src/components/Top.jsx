@@ -24,7 +24,7 @@ import Chart from '../dashboard/Chart';
 import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
 import TransitionButton from '../components/TransitionButton';
-import Resource from './Resource.tsx';
+import Resource from './Resource';
 import Calendar from './Calendar';
 
 const Copyright = () => {
@@ -225,10 +225,10 @@ export default () => {
               </Grid>
             </Route>
             <Route path="/resource">
-              <Resource />
+              <Resource key="res0" />
             </Route>
             <Route path="/calendar">
-              <Calendar />
+              <Calendar key="cal0" />
             </Route>
           </Switch>
           <Box pt={4}>
