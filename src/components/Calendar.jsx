@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
+import Views from '../consts/Views';
 import Events from '../consts/Events';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
@@ -78,6 +79,8 @@ export default () => {
     <DragAndDropCalendar
       localizer={localizer}
       style={{ height: 700 }}
+      views={Object.values(Views)}
+      defaultView={Views.DAY}
       selectable
       resizable
       events={events}
