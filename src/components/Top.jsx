@@ -225,10 +225,10 @@ export default () => {
               </Grid>
             </Route>
             <Route path="/resource">
-              <Resource key="res0" />
+              <Resource />
             </Route>
             <Route path="/calendar">
-              <Calendar key="cal0" />
+              <Calendar />
             </Route>
           </Switch>
           <Box pt={4}>

@@ -12,7 +12,7 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 export default () => {
   const [events, setEvents] = useState([...Events]);
 
-  const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
+  const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
     const idx = events.indexOf(event);
     let allDay = event.allDay
     if (!event.allDay && droppedOnAllDaySlot) {
@@ -20,7 +20,7 @@ export default () => {
     } else if (event.allDay && !droppedOnAllDaySlot) {
       allDay = false;
     }
-    const updatedEvent = { ...event, start, end, allDay };
+    const updatedEvent = { ...event, start, end, allDay, resourceId };
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
@@ -37,20 +37,23 @@ export default () => {
     // alert(`${event.title} was resized to ${start}-${end}`)
   }
 
-  const handleSelectSlot = (event) => {
+  const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
+      const newEventId = Math.max(...[0, ...events.map(e => e.id)]) + 1;
+      const allDay = slots.length === 1;
+      setEvents([
+        ...events,
+        {
+          id: newEventId,
+          title,
+          allDay,
+          start,
+          end,
+          resourceId,
+        }
+      ]);
     }
-    let idList = events.map(a => a.id);
-    let newId = Math.max(...idList) + 1
-    let hour = {
-      id: newId,
-      title,
-      allDay: event.slots.length === 1,
-      start: event.start,
-      end: event.end,
-    }
-    setEvents([...events, hour]);
   }
 
   const handleDoubleClickEvent = ({ id, allDay, start, end, resourceId }) => {

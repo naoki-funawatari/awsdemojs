@@ -26,6 +26,7 @@ export default () => {
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
+    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
   }
 
   const handleEventResize = ({ event, start, end }) => {
@@ -38,8 +39,7 @@ export default () => {
     // alert(`${event.title} was resized to ${start}-${end}`)
   }
 
-  const handleSelectSlot = (event) => {
-    const { slots, start, end, resourceId } = event;
+  const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
       const newEventId = Math.max(...[0, ...events.map(e => e.id)]) + 1;
