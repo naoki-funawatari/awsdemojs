@@ -25,6 +25,7 @@ import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
 import TransitionButton from '../components/TransitionButton';
 import Resource from './Resource';
+import Calendar from './Calendar';
 
 const Copyright = () => {
   return (
@@ -225,6 +226,9 @@ export default () => {
             </Route>
             <Route path="/resource">
               <Resource />
+            </Route>
+            <Route path="/calendar">
+              <Calendar />
             </Route>
           </Switch>
           <Box pt={4}>
