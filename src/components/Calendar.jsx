@@ -12,6 +12,7 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default () => {
   const [events, setEvents] = useState([...Events]);
+  console.table(events);
 
   const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
     const idx = events.indexOf(event);
@@ -21,7 +22,7 @@ export default () => {
     } else if (event.allDay && !droppedOnAllDaySlot) {
       allDay = false;
     }
-    const updatedEvent = { ...event, start, end, allDay, resourceId };
+    const updatedEvent = { ...event, start, end, allDay, resourceId: resourceId || 1 };
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
     setEvents(nextEvents);
@@ -45,14 +46,7 @@ export default () => {
       const allDay = slots.length === 1;
       setEvents([
         ...events,
-        {
-          id: newEventId,
-          title,
-          allDay,
-          start,
-          end,
-          resourceId,
-        }
+        { id: newEventId, title, allDay, start, end, resourceId: resourceId || 1 }
       ]);
     }
   }
@@ -61,14 +55,7 @@ export default () => {
     const title = window.prompt('New Event name');
     if (title) {
       const idx = events.findIndex(event => event.id === id);
-      const updatedEvent = {
-        id,
-        title,
-        allDay,
-        start,
-        end,
-        resourceId,
-      };
+      const updatedEvent = { id, title, allDay, start, end, resourceId: resourceId || 1 };
       const nextEvents = [...events];
       nextEvents.splice(idx, 1, updatedEvent);
       setEvents(nextEvents);
