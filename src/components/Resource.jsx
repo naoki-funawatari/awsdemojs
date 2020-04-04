@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
@@ -12,17 +12,88 @@ const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default () => {
+  const [events, setEvents] = useState([...Events]);
+
+  const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
+    const idx = events.indexOf(event);
+    let allDay = event.allDay
+    if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true;
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false;
+    }
+    const updatedEvent = { ...event, start, end, allDay, resourceId };
+    const nextEvents = [...events];
+    nextEvents.splice(idx, 1, updatedEvent);
+    setEvents(nextEvents);
+  }
+
+  const handleEventResize = ({ event, start, end }) => {
+    const nextEvents = events.map(existingEvent => {
+      return existingEvent.id === event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent;
+    });
+    setEvents(nextEvents);
+    // alert(`${event.title} was resized to ${start}-${end}`)
+  }
+
+  const handleSelectSlot = (event) => {
+    const { slots, start, end, resourceId } = event;
+    const title = window.prompt('New Event name');
+    if (title) {
+      const newEventId = Math.max(...[0, ...events.map(e => e.id)]) + 1;
+      const allDay = slots.length === 1;
+      setEvents([
+        ...events,
+        {
+          id: newEventId,
+          title,
+          allDay,
+          start,
+          end,
+          resourceId,
+        }
+      ]);
+    }
+  }
+
+  const handleDoubleClickEvent = ({ id, allDay, start, end, resourceId }) => {
+    const title = window.prompt('New Event name');
+    if (title) {
+      const idx = events.findIndex(event => event.id === id);
+      const updatedEvent = {
+        id,
+        title,
+        allDay,
+        start,
+        end,
+        resourceId,
+      };
+      const nextEvents = [...events];
+      nextEvents.splice(idx, 1, updatedEvent);
+      setEvents(nextEvents);
+    }
+  }
+
   return (
     <DragAndDropCalendar
       localizer={localizer}
-      views={['day', 'work_week']}
+      style={{ height: 500 }}
+      views={['day', 'week']}
       defaultView={Views.DAY}
       step={15}
+      selectable
+      resizable
       resources={Resources}
       resourceIdAccessor="resourceId"
       resourceTitleAccessor="resourceTitle"
-      events={Events}
-    // defaultDate={new Date(20, 0, 29)}
+      events={events}
+      onEventDrop={handleEventDrop}
+      onEventResize={handleEventResize}
+      onSelectSlot={handleSelectSlot}
+      onDoubleClickEvent={handleDoubleClickEvent}
+      defaultDate={new Date()}
     />
   );
 }
