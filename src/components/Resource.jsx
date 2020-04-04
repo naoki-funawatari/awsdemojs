@@ -79,7 +79,7 @@ export default () => {
   return (
     <DragAndDropCalendar
       localizer={localizer}
-      style={{ height: 500 }}
+      style={{ height: 700 }}
       views={['day', 'week']}
       defaultView={Views.DAY}
       step={15}
