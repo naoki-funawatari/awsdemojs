@@ -24,7 +24,7 @@ import Chart from '../dashboard/Chart';
 import Deposits from '../dashboard/Deposits';
 import Orders from '../dashboard/Orders';
 import TransitionButton from '../components/TransitionButton';
-import Resource from './Resource';
+import Resource from './Resource.tsx';
 import Calendar from './Calendar';
 
 const Copyright = () => {
