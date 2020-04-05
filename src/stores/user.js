@@ -27,7 +27,7 @@ export const {
 
 export const updateUserAsync = () => async (dispatch, getState) => {
   const { token } = getState();
-  const res = await fetch('https://localhost:44335/User', {
+  const res = await fetch('https://localhost:44335/Users', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

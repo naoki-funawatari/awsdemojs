@@ -128,7 +128,7 @@ export default () => {
   const token = useSelector(state => state.token);
   const [user, setUser] = useState({ id: null, name: null });
   const getUserInfo = useCallback(async () => {
-    const res = await fetch('https://localhost:44335/User', {
+    const res = await fetch('https://localhost:44335/Users', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

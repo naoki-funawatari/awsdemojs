@@ -75,7 +75,7 @@ export default () => {
       return persist(e);
     }
 
-    const res = await fetch('https://localhost:44335/User', {
+    const res = await fetch('https://localhost:44335/Users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
