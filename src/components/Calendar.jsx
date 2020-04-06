@@ -61,16 +61,14 @@ export default () => {
     }
   }
 
-  const handleRangeChange = (range, view) => {
-    console.log(range);
+  const handleNavigate = (newDate, view, action) => {
+    console.log(newDate);
     console.log(view);
+    console.log(action);
   }
 
   const handleRangeChange = (range, view) => {
-    console.log(typeof range);
-    console.log(Array.isArray(range));
     console.log(range);
-    console.log(typeof view);
     console.log(view);
   }
 
