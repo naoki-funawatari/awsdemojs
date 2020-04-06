@@ -61,10 +61,17 @@ export default () => {
     }
   }
 
-  const handleNavigate = (newDate, view, action) => {
-    console.log(newDate);
+  const handleRangeChange = (range, view) => {
+    console.log(range);
     console.log(view);
-    console.log(action);
+  }
+
+  const handleRangeChange = (range, view) => {
+    console.log(typeof range);
+    console.log(Array.isArray(range));
+    console.log(range);
+    console.log(typeof view);
+    console.log(view);
   }
 
   return (
@@ -77,7 +84,7 @@ export default () => {
       resizable
       events={events}
       onNavigate={handleNavigate}
-      onRangeChange={console.log}
+      onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
       onEventResize={handleEventResize}
       onSelectSlot={handleSelectSlot}

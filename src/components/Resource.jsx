@@ -67,6 +67,11 @@ export default () => {
     console.log(action);
   }
 
+  const handleRangeChange = (range, view) => {
+    console.log(range);
+    console.log(view);
+  }
+
   return (
     <DragAndDropCalendar
       localizer={localizer}
@@ -81,7 +86,7 @@ export default () => {
       resourceTitleAccessor="resourceTitle"
       events={events}
       onNavigate={handleNavigate}
-      onRangeChange={console.log}
+      onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
       onEventResize={handleEventResize}
       onSelectSlot={handleSelectSlot}
