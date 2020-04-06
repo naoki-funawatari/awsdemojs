@@ -80,6 +80,9 @@ export default () => {
       style={{ height: 700 }}
       views={Object.values(Views)}
       defaultView={Views.DAY}
+      step={15}
+      min={moment('07:00am', 'h:mma').toDate()}
+      max={moment('21:00pm', 'h:mma').toDate()}
       selectable
       resizable
       events={events}
