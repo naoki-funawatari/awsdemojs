@@ -5,10 +5,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+// import BarChartIcon from '@material-ui/icons/BarChart';
+// import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 export const mainListItems = () => {
@@ -22,17 +22,17 @@ export const mainListItems = () => {
       </ListItem>
       <ListItem button component={Link} to="/resource">
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <MeetingRoomIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Resources" />
       </ListItem>
       <ListItem button component={Link} to="/calendar">
         <ListItemIcon>
-          <PeopleIcon />
+          <EventNoteIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="Personal Events" />
       </ListItem>
-      <ListItem button>
+      {/* <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
@@ -43,7 +43,7 @@ export const mainListItems = () => {
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Integrations" />
-      </ListItem>
+      </ListItem> */}
     </div>
   );
 }
