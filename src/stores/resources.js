@@ -16,23 +16,37 @@ export const {
   updateResources
 } = slice.actions;
 
-export const updateResourcesAsync = () => {
-  return async (dispatch, getState) => {
-    const resources = await new Promise(resolve => {
-      setTimeout(() => {
-        resolve(initialResources)
-      }, 1000)
-    });
+export const updateResourcesAsync = () => async (dispatch, getState) => {
+  // const { token } = getState();
+  // const res = await fetch('https://localhost:44335/Users', {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${token}`
+  //   }
+  // });  
+  // const events = await res.json();
+  // dispatch(updateEvents(events));
 
-    dispatch(updateResources(resources));
-  }
+  const resources = await new Promise(resolve => {
+    setTimeout(() => {
+      resolve(initialResources)
+    }, 1000)
+  });
+
+  dispatch(updateResources(resources));
 }
 
 const initialResources = [
-  { resourceId: 1, resourceTitle: '自分の予定' },
-  { resourceId: 2, resourceTitle: '会議室１' },
-  { resourceId: 3, resourceTitle: '会議室２' },
-  { resourceId: 4, resourceTitle: '会議室３' },
-  { resourceId: 5, resourceTitle: 'プロジェクター' },
-  { resourceId: 6, resourceTitle: 'ノートPC' },
+  { id: 1, title: '自分の予定', },
+  { id: 2, title: '会議室１', },
+  { id: 3, title: '会議室２', },
+  { id: 4, title: '会議室３', },
+  { id: 5, title: '会議室４', },
+  { id: 6, title: '会議室５', },
+  { id: 7, title: '会議室６', },
+  { id: 8, title: '会議室７', },
+  { id: 9, title: '会議室８', },
+  { id: 10, title: '会議室９', },
+  { id: 11, title: '会議室１０', },
 ];
