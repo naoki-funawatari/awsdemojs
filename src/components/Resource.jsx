@@ -4,7 +4,6 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
 import Views from '../consts/Views';
-import Resources from '../consts/Resources';
 import { updateEvents } from '../stores/events';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
@@ -13,7 +12,7 @@ const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default () => {
-  const { events } = useSelector(state => state);
+  const { events, resources } = useSelector(state => state);
   const dispatch = useDispatch();
 
   const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
@@ -77,7 +76,7 @@ export default () => {
       step={15}
       selectable
       resizable
-      resources={Resources}
+      resources={resources}
       resourceIdAccessor="resourceId"
       resourceTitleAccessor="resourceTitle"
       events={events}

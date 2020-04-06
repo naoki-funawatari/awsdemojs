@@ -27,6 +27,7 @@ import TransitionButton from '../components/TransitionButton';
 import Resource from './Resource';
 import Calendar from './Calendar';
 import { updateEventsAsync } from '../stores/events';
+import { updateResourcesAsync } from '../stores/resources';
 
 const Copyright = () => {
   return (
@@ -159,6 +160,7 @@ export default () => {
 
   useEffect(() => {
     dispatch(updateEventsAsync());
+    dispatch(updateResourcesAsync());
   }, [dispatch]);
 
   return (
