@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, Switch, Route } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,6 +26,7 @@ import Orders from '../dashboard/Orders';
 import TransitionButton from '../components/TransitionButton';
 import Resource from './Resource';
 import Calendar from './Calendar';
+import { updateEventsAsync } from '../stores/events';
 
 const Copyright = () => {
   return (
@@ -126,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const token = useSelector(state => state.token);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({ id: null, name: null });
   const getUserInfo = useCallback(async () => {
     const res = await fetch('https://localhost:44335/Users', {
@@ -154,6 +156,10 @@ export default () => {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  useEffect(() => {
+    dispatch(updateEventsAsync());
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

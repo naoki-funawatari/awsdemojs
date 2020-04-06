@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
 import Views from '../consts/Views';
-import Events from '../consts/Events';
+import { updateEvents } from '../stores/events';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
 
@@ -11,8 +12,8 @@ const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default () => {
-  const [events, setEvents] = useState([...Events]);
-  console.table(events);
+  const { events } = useSelector(state => state);
+  const dispatch = useDispatch();
 
   const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
     const idx = events.indexOf(event);
@@ -25,8 +26,7 @@ export default () => {
     const updatedEvent = { ...event, start, end, allDay, resourceId: resourceId || 1 };
     const nextEvents = [...events];
     nextEvents.splice(idx, 1, updatedEvent);
-    setEvents(nextEvents);
-    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+    dispatch(updateEvents(nextEvents));
   }
 
   const handleEventResize = ({ event, start, end }) => {
@@ -35,8 +35,7 @@ export default () => {
         ? { ...existingEvent, start, end }
         : existingEvent;
     });
-    setEvents(nextEvents);
-    // alert(`${event.title} was resized to ${start}-${end}`)
+    dispatch(updateEvents(nextEvents));
   }
 
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
@@ -44,10 +43,10 @@ export default () => {
     if (title) {
       const newEventId = Math.max(...[0, ...events.map(e => e.id)]) + 1;
       const allDay = slots.length === 1;
-      setEvents([
+      dispatch(updateEvents([
         ...events,
         { id: newEventId, title, allDay, start, end, resourceId: resourceId || 1 }
-      ]);
+      ]));
     }
   }
 
@@ -58,7 +57,7 @@ export default () => {
       const updatedEvent = { id, title, allDay, start, end, resourceId: resourceId || 1 };
       const nextEvents = [...events];
       nextEvents.splice(idx, 1, updatedEvent);
-      setEvents(nextEvents);
+      dispatch(updateEvents(nextEvents));
     }
   }
 
