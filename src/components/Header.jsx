@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { updateUserAsync } from '../stores/user';
+import { updateUserAsync } from '../stores/users';
 import TransitionButton from './TransitionButton';
 
 export default () => {
