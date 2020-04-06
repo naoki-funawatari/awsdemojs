@@ -61,6 +61,12 @@ export default () => {
     }
   }
 
+  const handleNavigate = (newDate, view, action) => {
+    console.log(newDate);
+    console.log(view);
+    console.log(action);
+  }
+
   return (
     <DragAndDropCalendar
       localizer={localizer}
@@ -70,6 +76,8 @@ export default () => {
       selectable
       resizable
       events={events}
+      onNavigate={handleNavigate}
+      onRangeChange={console.log}
       onEventDrop={handleEventDrop}
       onEventResize={handleEventResize}
       onSelectSlot={handleSelectSlot}
