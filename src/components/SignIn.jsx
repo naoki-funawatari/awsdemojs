@@ -128,7 +128,7 @@ export default ({ location }) => {
               autoFocus
               inputRef={inputId}
               maxLength={7}
-              defaultValue={(location.state && location.state.id) || 'T113001'}
+              defaultValue={(location && location.state && location.state.id) || 'T113001'}
             />
             <TextField
               variant="outlined"
