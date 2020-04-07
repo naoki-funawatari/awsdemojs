@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { updateEventsAsync } from '../events/events';
-import { updateResourcesAsync } from '../events/resources';
+import { updateEventsAsync } from '../features/events/events';
+import { updateResourcesAsync } from '../features/events/resources';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,8 +16,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from '../dashboard/listItems';
-import SignoutButton from '../authentication/SignoutButton';
+import { mainListItems } from '../features/dashboard/listItems';
+import SignoutButton from '../features/authentication/SignoutButton';
 
 const drawerWidth = 240;
 

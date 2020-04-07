@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Top from './components/Top';
-import SignIn from './authentication/SignIn';
-import SignUp from './authentication/SignUp';
+import SignIn from './features/authentication/SignIn';
+import SignUp from './features/authentication/SignUp';
 
 export default () => {
   return (

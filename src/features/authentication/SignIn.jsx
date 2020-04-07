@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Copyright from '../components/Copyright';
+import Copyright from '../../components/Copyright';
 
 const useStyles = makeStyles((theme) => ({
   root: {

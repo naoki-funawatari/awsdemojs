@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { updateUserAsync } from '../authentication/users';
-import SignoutButton from '../authentication/SignoutButton';
+import { updateUserAsync } from '../features/authentication/users';
+import SignoutButton from '../features/authentication/SignoutButton';
 
 export default () => {
   const { pathname } = useLocation();
