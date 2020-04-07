@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { Switch, Route } from 'react-router-dom';
-import { updateEventsAsync } from '../stores/events';
-import { updateResourcesAsync } from '../stores/resources';
+import { updateEventsAsync } from '../events/events';
+import { updateResourcesAsync } from '../events/resources';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Dashboard from '../dashboard/Dashboard';
-import Resource from './Resource';
-import Calendar from './Calendar';
+import Resource from '../events/Resource';
+import Calendar from '../events/Calendar';
 import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({

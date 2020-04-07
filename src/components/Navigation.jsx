@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { updateEventsAsync } from '../stores/events';
-import { updateResourcesAsync } from '../stores/resources';
+import { updateEventsAsync } from '../events/events';
+import { updateResourcesAsync } from '../events/resources';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';

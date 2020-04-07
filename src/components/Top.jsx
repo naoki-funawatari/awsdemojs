@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { updateEventsAsync } from '../stores/events';
-import { updateResourcesAsync } from '../stores/resources';
+import { updateEventsAsync } from '../events/events';
+import { updateResourcesAsync } from '../events/resources';
 import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './Navigation';
 import Main from './Main';
