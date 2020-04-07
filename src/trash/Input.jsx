@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { appendPerson, removePerson } from '../stores/users';
+import { appendPerson, removePerson } from '../authentication/users';
 
 export default () => {
   const dispatch = useDispatch();

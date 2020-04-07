@@ -17,7 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../dashboard/listItems';
-import SignoutButton from './SignoutButton';
+import SignoutButton from '../authentication/SignoutButton';
 
 const drawerWidth = 240;
 

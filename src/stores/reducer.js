@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import token from "./token";
-import user from "./users";
+import token from "../authentication/token";
+import user from "../authentication/users";
 import events from "./events";
 import resources from "./resources";
 
