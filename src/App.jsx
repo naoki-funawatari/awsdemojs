@@ -6,16 +6,15 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 
 export default () => {
-  const token = useSelector(state => state.token);
-
   return (
     <Router>
       <Switch>
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
-        <PrivateRoute path="/" token={token}>
-          {/* ここに書かれているものが children に渡される */}
+        <PrivateRoute path="/">
+          {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
           <Top />
+          {/* ↑↑↑ ここに書かれているものが children に渡される ↑↑↑ */}
         </PrivateRoute>
       </Switch>
     </Router>
@@ -23,11 +22,13 @@ export default () => {
 }
 
 const PrivateRoute = ({ children, ...rest }) => {
+  const token = useSelector(state => state.token);
+
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        if (isAuthenticated(rest.token)) {
+        if (isAuthenticated(token)) {
           // 認証済みの場合は、トップページを表示する
           return children;
         }
