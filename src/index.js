@@ -1,7 +1,6 @@
 import React from 'react';
 import { Provider } from "react-redux";
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import store from './stores/reducer';
 import App from './App.jsx';
@@ -9,9 +8,7 @@ import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <App />
   </Provider>,
   document.getElementById('root')
 );

@@ -1,30 +1,28 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from 'react-router-dom';
-import { deleteToken } from './stores/token';
-// import Header from './components/Header';
-import Main from './components/Main';
-// import './scss/style.scss';
+import { useSelector } from "react-redux";
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import Top from './components/Top';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 export default () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { pathname } = useLocation();
   const token = useSelector(state => state.token);
   const root = document.getElementById('root');
   root.className = isAuthenticated(token)
     ? 'authenticated'
     : 'unauthenticated';
 
-  if ((pathname !== '/signin' && pathname !== '/signup') && !isAuthenticated(token)) {
-    dispatch(deleteToken());
-    history.push({ pathname: '/signin' });
-  }
-
   return (
-    <>
-      <Main />
-    </>
+    <Router>
+      <Switch>
+        <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/" render={() =>
+          isAuthenticated(token)
+            ? <Top />
+            : <SignIn />} />
+      </Switch>
+    </Router>
   );
 }
 
