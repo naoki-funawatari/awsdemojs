@@ -17,7 +17,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems } from '../dashboard/listItems';
-import TransitionButton from '../components/TransitionButton';
+import SignoutButton from './SignoutButton';
 import Main from './Main';
 
 const drawerWidth = 240;
@@ -163,7 +163,7 @@ export default () => {
             </Badge>
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title2}>　</Typography>
-          <TransitionButton pathname={'/'} />
+          <SignoutButton />
         </Toolbar>
       </AppBar>
       <Drawer
