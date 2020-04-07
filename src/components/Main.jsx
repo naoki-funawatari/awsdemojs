@@ -1,28 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { updateEventsAsync } from '../stores/events';
 import { updateResourcesAsync } from '../stores/resources';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Dashboard from '../dashboard/Dashboard';
 import Resource from './Resource';
 import Calendar from './Calendar';
-
-const Copyright = () => {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link to="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,9 +41,9 @@ export default () => {
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
           <Route path="/resource" component={Resource} />
           <Route path="/calendar" component={Calendar} />
+          <Route path="/" component={Dashboard} />
         </Switch>
         <Box pt={4}>
           <Copyright />
