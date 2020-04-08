@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { updateEventsAsync } from '../features/events/events';
-import { updateResourcesAsync } from '../features/events/resources';
+import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -82,40 +80,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const token = useSelector(state => state.token);
-  const dispatch = useDispatch();
-  const [user, setUser] = useState({ id: null, name: null });
-  const getUserInfo = useCallback(async () => {
-    const res = await fetch('https://localhost:44335/Users', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-
-    if (res.status === 200) {
-      const json = await res.json();
-      setUser(json);
-      return;
-    }
-  }, [token]);
-  useEffect(() => {
-    getUserInfo();
-  }, [getUserInfo])
+  const user = useSelector(state => state.user);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    dispatch(updateEventsAsync());
-    dispatch(updateResourcesAsync());
-  }, [dispatch]);
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
   return (
     <>

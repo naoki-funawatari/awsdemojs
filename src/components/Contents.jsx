@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
+import { updateUserAsync } from '../features/authentication/users';
 import { updateEventsAsync } from '../features/events/events';
 import { updateResourcesAsync } from '../features/events/resources';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +18,7 @@ export default () => {
   const classes = useStyles();
 
   useEffect(() => {
+    dispatch(updateUserAsync());
     dispatch(updateEventsAsync());
     dispatch(updateResourcesAsync());
   }, [dispatch]);
