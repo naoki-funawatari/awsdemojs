@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
+import { updateEvents, updateEventsAsync } from './events';
+import { updateResourcesAsync } from './resources';
 import Views from './Views';
-import { updateEvents } from './events';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
 
@@ -14,6 +15,12 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 export default () => {
   const { events, resources } = useSelector(state => state);
   const dispatch = useDispatch();
+  const updateAsync = useCallback(() => {
+    dispatch(updateEventsAsync());
+    dispatch(updateResourcesAsync());
+  }, [dispatch]);
+
+  useEffect(updateAsync, [updateAsync]);
 
   const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
     const _events = events.map(_event => {
@@ -29,8 +36,8 @@ export default () => {
       return _event;
     });
     dispatch(updateEvents(_events));
+    updateAsync();
   }
-
   const handleEventResize = ({ event, start, end }) => {
     const nextEvents = events.map(existingEvent => {
       return existingEvent.id === event.id
@@ -38,8 +45,8 @@ export default () => {
         : existingEvent;
     });
     dispatch(updateEvents(nextEvents));
+    updateAsync();
   }
-
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
@@ -50,8 +57,8 @@ export default () => {
         { id: newEventId, title, allDay, start, end, resourceId: resourceId || 1 }
       ]));
     }
+    updateAsync();
   }
-
   const handleDoubleClickEvent = ({ id, allDay, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
@@ -61,17 +68,18 @@ export default () => {
       nextEvents.splice(idx, 1, updatedEvent);
       dispatch(updateEvents(nextEvents));
     }
+    updateAsync();
   }
-
   const handleNavigate = (newDate, view, action) => {
     // console.log(newDate);
     // console.log(view);
     // console.log(action);
+    updateAsync();
   }
-
   const handleRangeChange = (range, view) => {
     // console.log(range);
     // console.log(view);
+    updateAsync();
   }
 
   return (
