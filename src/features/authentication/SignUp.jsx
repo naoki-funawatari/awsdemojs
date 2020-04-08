@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const inputLoginId = useRef(null);
+  const inputId = useRef(null);
   const inputPassword = useRef(null);
   const inputName = useRef(null);
   const inputEmail = useRef(null);
@@ -45,12 +45,12 @@ export default () => {
   const history = useHistory();
   const signUp = async (e) => {
     dispatch(deleteToken());
-    const loginId = `${inputLoginId.current.value}`.trim();
+    const id = `${inputId.current.value}`.trim();
     const password = `${inputPassword.current.value}`.trim();
     const name = `${inputName.current.value}`.trim();
     const email = `${inputEmail.current.value}`.trim();
 
-    if (loginId === '') {
+    if (id === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
@@ -65,7 +65,7 @@ export default () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ loginId, password, name, email })
+      body: JSON.stringify({ id, password, name, email })
     })
 
     if (res.status === 400) {
@@ -75,11 +75,11 @@ export default () => {
 
     if (res.status === 204) {
       alert('登録に成功しました。');
-      inputLoginId.current.value = '';
+      inputId.current.value = '';
       inputPassword.current.value = '';
       inputName.current.value = '';
       inputEmail.current.value = '';
-      history.push({ pathname: '/', state: { loginId } });
+      history.push({ pathname: '/', state: { id } });
     }
   }
   const persist = e => {
@@ -110,7 +110,7 @@ export default () => {
                 name="ID"
                 label="ID"
                 maxLength={7}
-                inputRef={inputLoginId}
+                inputRef={inputId}
               />
             </Grid>
             <Grid item xs={12}>

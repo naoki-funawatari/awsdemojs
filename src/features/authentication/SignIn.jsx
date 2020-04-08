@@ -48,16 +48,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ location }) => {
-  const inputLoginId = useRef(null);
+  const inputId = useRef(null);
   const inputPassword = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
-    const loginId = `${inputLoginId.current.value}`.trim();
+    const id = `${inputId.current.value}`.trim();
     const password = `${inputPassword.current.value}`.trim();
 
-    if (loginId === '') {
+    if (id === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
@@ -70,7 +70,7 @@ export default ({ location }) => {
     const res = await fetch('https://localhost:44335/Token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `grant_type=password&username=${loginId}&password=${password}`
+      body: `grant_type=password&username=${id}&password=${password}`
     });
 
     if (res.status === 400) {
@@ -110,11 +110,11 @@ export default ({ location }) => {
               required
               fullWidth
               autoFocus
-              id="loginId"
-              name="loginId"
+              id="id"
+              name="id"
               label="ID"
               maxLength={7}
-              inputRef={inputLoginId}
+              inputRef={inputId}
               defaultValue={"T113001"}
             />
             <TextField
