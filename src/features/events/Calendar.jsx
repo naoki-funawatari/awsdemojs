@@ -15,18 +15,20 @@ export default () => {
   const { events } = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const handleEventDrop = ({ event, start, end, isAllDay: droppedOnAllDaySlot, resourceId }) => {
-    const idx = events.indexOf(event);
-    let allDay = event.allDay
-    if (!event.allDay && droppedOnAllDaySlot) {
-      allDay = true;
-    } else if (event.allDay && !droppedOnAllDaySlot) {
-      allDay = false;
-    }
-    const updatedEvent = { ...event, start, end, allDay, resourceId: resourceId || 1 };
-    const nextEvents = [...events];
-    nextEvents.splice(idx, 1, updatedEvent);
-    dispatch(updateEvents(nextEvents));
+  const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
+    const _events = events.map(_event => {
+      if (_event.id === event.id) {
+        return {
+          id: event.id,
+          start,
+          end,
+          allDay: isAllDay,
+          resourceId
+        }
+      }
+      return _event;
+    });
+    dispatch(updateEvents(_events));
   }
 
   const handleEventResize = ({ event, start, end }) => {
