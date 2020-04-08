@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from "react-redux";
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Top from './components/Top';
+import Contents from './components/Contents';
 import SignIn from './features/authentication/SignIn';
 import SignUp from './features/authentication/SignUp';
 
@@ -13,7 +13,7 @@ export default () => {
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/">
           {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
-          <Top />
+          <Contents />
           {/* ↑↑↑ ここに書かれているものが children に渡される ↑↑↑ */}
         </PrivateRoute>
       </Switch>
