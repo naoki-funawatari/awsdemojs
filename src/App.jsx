@@ -21,12 +21,12 @@ export default () => {
   );
 }
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children, path }) => {
   const token = useSelector(state => state.token);
 
   return (
     <Route
-      {...rest}
+      path={path}
       render={({ location }) => {
         if (isAuthenticated(token)) {
           // 認証済みの場合は、トップページを表示する
