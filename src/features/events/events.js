@@ -26,6 +26,12 @@ export const updateEventsAsync = () => async (dispatch, getState) => {
     }
   });
   const events = await res.json();
-  const parsedEvents = [...events].map(event => ({ ...event, start: new Date(event.start), end: new Date(event.end) }));
-  dispatch(updateEvents(parsedEvents));
+  // const parsedEvents = [...events].map(event => ({
+  //   ...event,
+  //   start: new Date(event.start),
+  //   end: new Date(event.end)
+  // }));
+  // console.log(parsedEvents);
+  // dispatch(updateEvents(parsedEvents));
+  dispatch(updateEvents(events));
 }

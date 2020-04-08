@@ -20,7 +20,7 @@ export default () => {
     dispatch(updateResourcesAsync());
   }, [dispatch]);
 
-  useEffect(updateAsync, [updateAsync]);
+  // useEffect(updateAsync, [updateAsync]);
 
   const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
     const _events = events.map(_event => {

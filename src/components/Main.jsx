@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { updateEventsAsync } from '../features/events/events';
-import { updateResourcesAsync } from '../features/events/resources';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -28,13 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-
-  useEffect(() => {
-    dispatch(updateEventsAsync());
-    dispatch(updateResourcesAsync());
-  }, [dispatch]);
 
   return (
     <main className={classes.content}>
