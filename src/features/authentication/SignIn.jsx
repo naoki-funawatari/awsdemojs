@@ -48,16 +48,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default ({ location }) => {
-  const inputId = useRef(null);
+  const inputLoginId = useRef(null);
   const inputPassword = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
-    const id = `${inputId.current.value}`.trim();
+    const loginId = `${inputLoginId.current.value}`.trim();
     const password = `${inputPassword.current.value}`.trim();
 
-    if (id === '') {
+    if (loginId === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
@@ -70,7 +70,7 @@ export default ({ location }) => {
     const res = await fetch('https://localhost:44335/Token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `grant_type=password&username=${id}&password=${password}`
+      body: `grant_type=password&username=${loginId}&password=${password}`
     });
 
     if (res.status === 400) {
@@ -109,14 +109,12 @@ export default ({ location }) => {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="ID"
-              name="email"
-              autoComplete="email"
               autoFocus
-              inputRef={inputId}
+              id="loginId"
+              name="loginId"
+              label="ID"
               maxLength={7}
-              defaultValue={(location && location.state && location.state.id) || 'T113001'}
+              inputRef={inputLoginId}
             />
             <TextField
               variant="outlined"
@@ -127,9 +125,8 @@ export default ({ location }) => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              maxLength={100}
               inputRef={inputPassword}
-              maxLength={50}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

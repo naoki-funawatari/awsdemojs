@@ -37,18 +37,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const inputId = useRef(null);
+  const inputLoginId = useRef(null);
   const inputPassword = useRef(null);
   const inputName = useRef(null);
+  const inputEmail = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const signUp = async (e) => {
     dispatch(deleteToken());
-    const id = `${inputId.current.value}`.trim();
+    const loginId = `${inputLoginId.current.value}`.trim();
     const password = `${inputPassword.current.value}`.trim();
     const name = `${inputName.current.value}`.trim();
+    const email = `${inputEmail.current.value}`.trim();
 
-    if (id === '') {
+    if (loginId === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
@@ -58,17 +60,12 @@ export default () => {
       return persist(e);
     }
 
-    if (name === '') {
-      alert('NAME を入力してください。');
-      return persist(e);
-    }
-
     const res = await fetch('https://localhost:44335/Users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id, password, name })
+      body: JSON.stringify({ loginId, password, name, email })
     })
 
     if (res.status === 400) {
@@ -78,10 +75,11 @@ export default () => {
 
     if (res.status === 204) {
       alert('登録に成功しました。');
-      inputId.current.value = '';
+      inputLoginId.current.value = '';
       inputPassword.current.value = '';
       inputName.current.value = '';
-      history.push({ pathname: '/signin', state: { id } });
+      inputEmail.current.value = '';
+      history.push({ pathname: '/', state: { loginId } });
     }
   }
   const persist = e => {
@@ -107,12 +105,12 @@ export default () => {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="ID"
-                name="email"
-                autoComplete="email"
                 autoFocus
-                inputRef={inputId}
+                id="ID"
+                name="ID"
+                label="ID"
+                maxLength={7}
+                inputRef={inputLoginId}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,23 +118,35 @@ export default () => {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
                 id="password"
-                autoComplete="current-password"
+                name="password"
+                type="password"
+                label="Password"
+                maxLength={100}
                 inputRef={inputPassword}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="name"
                 variant="outlined"
-                required
                 fullWidth
                 id="name"
+                name="name"
                 label="Your Name"
+                maxLength={50}
                 inputRef={inputName}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                id="email"
+                name="email"
+                type="email"
+                label="Mail Address"
+                maxLength={100}
+                inputRef={inputEmail}
               />
             </Grid>
             <Grid item xs={12}>
