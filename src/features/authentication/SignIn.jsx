@@ -115,6 +115,7 @@ export default ({ location }) => {
               label="ID"
               maxLength={7}
               inputRef={inputLoginId}
+              defaultValue={"T113001"}
             />
             <TextField
               variant="outlined"

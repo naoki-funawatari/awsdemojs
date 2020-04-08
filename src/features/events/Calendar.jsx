@@ -62,14 +62,14 @@ export default () => {
   }
 
   const handleNavigate = (newDate, view, action) => {
-    console.log(newDate);
-    console.log(view);
-    console.log(action);
+    // console.log(newDate);
+    // console.log(view);
+    // console.log(action);
   }
 
   const handleRangeChange = (range, view) => {
-    console.log(range);
-    console.log(view);
+    // console.log(range);
+    // console.log(view);
   }
 
   return (

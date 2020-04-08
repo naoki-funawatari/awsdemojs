@@ -13,7 +13,6 @@ const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default () => {
   const { events, resources } = useSelector(state => state);
-  console.log(events);
   const dispatch = useDispatch();
 
   const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
@@ -65,14 +64,14 @@ export default () => {
   }
 
   const handleNavigate = (newDate, view, action) => {
-    console.log(newDate);
-    console.log(view);
-    console.log(action);
+    // console.log(newDate);
+    // console.log(view);
+    // console.log(action);
   }
 
   const handleRangeChange = (range, view) => {
-    console.log(range);
-    console.log(view);
+    // console.log(range);
+    // console.log(view);
   }
 
   return (
