@@ -1,7 +1,7 @@
 USE [duty_times]
 GO
 
-/****** Object:  Table [dbo].[events]    Script Date: 2020/04/08 15:16:28 ******/
+/****** Object:  Table [dbo].[events]    Script Date: 2020/04/09 15:03:11 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[events](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[title] [nvarchar](50) NOT NULL,
 	[all_day] [bit] NOT NULL,
 	[start] [datetime] NOT NULL,
