@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
-import { updateEvents, updateEventsAsync, getParsedEvents } from './events';
+import { updateEvents, getEventsAsync, getParsedEvents } from './events';
 import { updateResourcesAsync } from './resources';
 import Views from './Views';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -22,7 +22,7 @@ export default ({ location }) => {
   const events = getParsedEvents();
   const dispatch = useDispatch();
   const updateAsync = useCallback(() => {
-    dispatch(updateEventsAsync());
+    dispatch(getEventsAsync());
     dispatch(updateResourcesAsync());
   }, [dispatch]);
 

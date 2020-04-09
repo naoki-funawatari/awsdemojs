@@ -8,7 +8,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     updateEvents: (state, action) => {
-      console.log([...action.payload])
       return [...action.payload].map(event => ({
         ...event,
         start: typeof event.start === "string"
@@ -28,17 +27,77 @@ export const {
   updateEvents
 } = slice.actions;
 
-export const updateEventsAsync = () => async (dispatch, getState) => {
-  const { token } = getState();
-  const res = await fetch('https://localhost:44335/Events', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  });
-  const events = await res.json();
-  dispatch(updateEvents(events));
+const endPoint = 'https://localhost:44335/Events';
+
+export const getEventsAsync = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const events = await res.json();
+    dispatch(updateEvents(events));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const postEventsAsync = event => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ ...event }),
+    });
+    const events = await res.json();
+    dispatch(updateEvents(events));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const putEventsAsync = event => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ ...event }),
+    });
+    const events = await res.json();
+    dispatch(updateEvents(events));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const deleteEventsAsync = event => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ ...event }),
+    });
+    const events = await res.json();
+    dispatch(updateEvents(events));
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export const getParsedEvents = () => {
