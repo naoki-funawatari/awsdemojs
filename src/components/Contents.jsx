@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { updateUserAsync } from '../features/authentication/users';
-import { updateEventsAsync } from '../features/events/events';
-import { updateResourcesAsync } from '../features/events/resources';
 import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './Navigation';
 import Main from './Main';
@@ -19,8 +17,6 @@ export default () => {
 
   useEffect(() => {
     dispatch(updateUserAsync());
-    dispatch(updateEventsAsync());
-    dispatch(updateResourcesAsync());
   }, [dispatch]);
 
   return (
