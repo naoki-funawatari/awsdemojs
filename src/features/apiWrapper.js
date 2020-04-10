@@ -4,17 +4,20 @@ const baseUrl = 'https://localhost:44335';
 export const fetchData = async (resourceName, method, body) => {
   try {
     const { token } = getState();
-    const res = await fetch(`${baseUrl}/${resourceName}`, {
+    const params = {
       method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: (typeof body === 'string')
+    };
+    if (!['GET', 'HEAD'].includes(`${method}`.toUpperCase()) && body) {
+      params['body'] = (typeof body === 'string')
         ? body
-        : JSON.stringify(body)
-    });
+        : JSON.stringify(body);
+    }
 
+    const res = await fetch(`${baseUrl}/${resourceName}`, params);
     const status = res.status;
     const statusText = responseStatusText[status];
     console.table({
