@@ -34,7 +34,7 @@ export default ({ location }) => {
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: !!isAllDay,
-      resourceId
+      resourceId: resourceId ?? event.resourceId
     }
     dispatch(putEvents({ ...newEvent }));
     dispatch(putEventsAsync({ ...newEvent }));
