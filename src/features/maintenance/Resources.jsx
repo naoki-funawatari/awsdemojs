@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedHeight: {
-    height: 240,
-  },
   seeMore: {
     marginTop: theme.spacing(3),
   },
@@ -36,7 +33,7 @@ export default () => {
   }, [dispatch]);
 
   return (
-    <Grid container alignContent="center" spacing={3}>
+    <Grid container justify="center" spacing={3}>
       <Grid item xs={6}>
         <Paper className={classes.paper}>
           <Typography component="h2" variant="h6" color="primary" gutterBottom>Resources</Typography>
