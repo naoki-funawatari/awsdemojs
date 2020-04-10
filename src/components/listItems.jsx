@@ -6,13 +6,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-// import BarChartIcon from '@material-ui/icons/BarChart';
-// import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 export const mainListItems = (
   <div>
+    <ListSubheader inset>Main</ListSubheader>
     <ListItem button component={Link} to="/">
       <ListItemIcon>
         <DashboardIcon />
@@ -21,13 +20,13 @@ export const mainListItems = (
     </ListItem>
     <ListItem button component={Link} to="/schedules">
       <ListItemIcon>
-        <MeetingRoomIcon />
+        <EventNoteIcon />
       </ListItemIcon>
       <ListItemText primary="Schedules" />
     </ListItem>
     <ListItem button component={Link} to="/personal">
       <ListItemIcon>
-        <EventNoteIcon />
+        <PermContactCalendarIcon />
       </ListItemIcon>
       <ListItemText primary="Personal" />
     </ListItem>
@@ -48,14 +47,14 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset >Maintenance</ListSubheader>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Resources" />
     </ListItem>
-    <ListItem button>
+    {/* <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
@@ -66,6 +65,6 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
-    </ListItem>
+    </ListItem> */}
   </div>
 );
