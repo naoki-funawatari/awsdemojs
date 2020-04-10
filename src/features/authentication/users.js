@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteToken } from './token';
+import { fetchData } from '../apiWrapper';
 
 const initialState = {
   id: null,
@@ -25,19 +26,11 @@ export const {
   deleteUser
 } = slice.actions;
 
-export const updateUserAsync = () => async (dispatch, getState) => {
-  const { token } = getState();
-  const res = await fetch('https://naoki-funawatari.tk/api/Users', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  });
-
-  if (res.status === 200) {
-    const json = await res.json();
-    dispatch(updateUser(json));
-    return;
-  }
+export const updateUserAsync = () => async dispatch => {
+  const data = await fetchData(
+    'Users',
+    'GET',
+    null
+  );
+  dispatch(updateUser({ ...data }));
 }
