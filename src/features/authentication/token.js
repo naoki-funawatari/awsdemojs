@@ -6,7 +6,7 @@ const slice = createSlice({
   name: "token",
   initialState,
   reducers: {
-    updateToken: (state, action) => action.payload,
+    updateToken: (state, { payload }) => payload.access_token,
     deleteToken: (state, action) => initialState,
   }
 });
