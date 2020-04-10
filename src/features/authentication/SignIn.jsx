@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch } from "react-redux";
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { deleteToken, updateToken } from './token';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -48,11 +48,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ location }) => {
+export default () => {
   const inputId = useRef(null);
   const inputPassword = useRef(null);
   const dispatch = useDispatch();
-  const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
     const id = `${inputId.current.value}`.trim();
