@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems } from './listItems';
+import { mainListItems, secondaryListItems } from './listItems';
 import SignoutButton from '../features/authentication/SignoutButton';
 
 const drawerWidth = 240;
@@ -125,9 +125,9 @@ export default () => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems()}</List>
-        {/* <Divider />
-        <List>{secondaryListItems}</List> */}
+        <List>{mainListItems}</List>
+        <Divider />
+        <List>{secondaryListItems}</List>
       </Drawer>
     </>
   );
