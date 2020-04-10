@@ -34,3 +34,20 @@ export const getResourcesAsync = () => async (dispatch, getState) => {
     console.error(e);
   }
 }
+export const postResourcesAsync = resource => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ ...resource }),
+    });
+    const resources = await res.json();
+    dispatch(updateResources(resources));
+  } catch (e) {
+    console.error(e);
+  }
+}
