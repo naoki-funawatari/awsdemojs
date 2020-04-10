@@ -27,10 +27,14 @@ export const {
 } = slice.actions;
 
 export const updateUserAsync = () => async dispatch => {
-  const data = await fetchData(
-    'Users',
-    'GET',
-    null
-  );
-  dispatch(updateUser({ ...data }));
+  try {
+    const data = await fetchData(
+      'Users',
+      'GET',
+      null
+    );
+    dispatch(updateUser({ ...data }));
+  } catch (error) {
+    console.log(error);
+  }
 }
