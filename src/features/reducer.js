@@ -15,3 +15,5 @@ const reducer = combineReducers({
 const store = configureStore({ reducer });
 
 export default store;
+
+export const { dispatch, getState } = store;

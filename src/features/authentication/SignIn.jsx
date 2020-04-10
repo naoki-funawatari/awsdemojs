@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Copyright from '../../components/Copyright';
+import { fetchData } from '../apiWrapper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,22 +68,15 @@ export default ({ location }) => {
       return persist(e);
     }
 
-    const res = await fetch('https://naoki-funawatari.tk/api/Token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `grant_type=password&username=${id}&password=${password}`
-    });
-
-    if (res.status === 400) {
-      alert('ID または PASSWORD が誤っています。');
-      return persist(e);
-    }
-
-    if (res.status === 200) {
-      const json = await res.json();
-      const token = json.access_token;
-      dispatch(updateToken(token));
-      history.push({ pathname: '/' });
+    try {
+      const data = await fetchData(
+        'Token',
+        'POST',
+        `grant_type=password&username=${id}&password=${password}`
+      );
+      dispatch(updateToken({ ...data }));
+    } catch (error) {
+      console.log(error)
     }
   }
   const persist = e => {
