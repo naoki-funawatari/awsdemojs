@@ -16,15 +16,21 @@ export const {
   updateResources
 } = slice.actions;
 
-export const updateResourcesAsync = () => async (dispatch, getState) => {
-  const { token } = getState();
-  const res = await fetch('https://localhost:44335/Resources', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-  });
-  const resources = await res.json();
-  dispatch(updateResources(resources));
+const endPoint = 'https://localhost:44335/Resources';
+
+export const getResourcesAsync = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState();
+    const res = await fetch(endPoint, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const resources = await res.json();
+    dispatch(updateResources(resources));
+  } catch (e) {
+    console.error(e);
+  }
 }

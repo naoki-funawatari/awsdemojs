@@ -9,7 +9,7 @@ import {
   putEvents, putEventsAsync,
   deleteEvents, deleteEventsAsync
 } from './events';
-import { updateResourcesAsync } from './resources';
+import { getResourcesAsync } from './resources';
 import Views from './Views';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
@@ -22,7 +22,7 @@ export default ({ location }) => {
   const dispatch = useDispatch();
   const updateAsync = useCallback(() => {
     dispatch(getEventsAsync());
-    dispatch(updateResourcesAsync());
+    dispatch(getResourcesAsync());
   }, [dispatch]);
 
   useEffect(updateAsync, [updateAsync]);

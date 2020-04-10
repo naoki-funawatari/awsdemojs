@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Dashboard from '../features/dashboard/Dashboard';
 import Schedules from '../features/events/Schedules';
+import Resources from '../features/maintenance/Resources';
 import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +34,7 @@ export default () => {
         <Switch>
           <Route path="/schedules" component={Schedules} />
           <Route path="/personal" component={Schedules} />
+          <Route path="/resources" component={Resources} />
           <Route path="/" component={Dashboard} />
         </Switch>
         <Box pt={4}>
