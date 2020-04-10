@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchData } from '../apiWrapper';
 
 const initialState = [];
 
@@ -16,38 +17,19 @@ export const {
   updateResources
 } = slice.actions;
 
-const endPoint = 'https://naoki-funawatari.tk/api/Resources';
-
-export const getResourcesAsync = () => async (dispatch, getState) => {
+export const getResourcesAsync = () => async dispatch => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    });
-    const resources = await res.json();
-    dispatch(updateResources(resources));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Resources', 'GET', null);
+    dispatch(updateResources(data));
+  } catch (error) {
+    console.log(error);
   }
 }
-export const postResourcesAsync = resource => async (dispatch, getState) => {
+export const postResourcesAsync = resource => async dispatch => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ ...resource }),
-    });
-    const resources = await res.json();
-    dispatch(updateResources(resources));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Resources', 'POST', resource);
+    dispatch(updateResources(data));
+  } catch (error) {
+    console.log(error);
   }
 }

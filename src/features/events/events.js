@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchData } from '../apiWrapper';
 
 const initialState = [];
 
@@ -48,73 +49,36 @@ export const {
   deleteEvents,
 } = slice.actions;
 
-const endPoint = 'https://naoki-funawatari.tk/api/Events';
-
-export const getEventsAsync = () => async (dispatch, getState) => {
+export const getEventsAsync = () => async dispatch => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    const events = await res.json();
-    dispatch(updateEvents(events));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Events', 'GET', null);
+    dispatch(updateEvents(data));
+  } catch (error) {
+    console.log(error);
   }
 }
-export const postEventsAsync = event => async (dispatch, getState) => {
+export const postEventsAsync = event => async dispatch => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ ...event }),
-    });
-    const events = await res.json();
-    dispatch(updateEvents(events));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Events', 'POST', event);
+    dispatch(updateEvents(data));
+  } catch (error) {
+    console.log(error);
   }
 }
-export const putEventsAsync = event => async (dispatch, getState) => {
+export const putEventsAsync = event => async dispatch => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ ...event }),
-    });
-    const events = await res.json();
-    dispatch(updateEvents(events));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Events', 'PUT', event);
+    dispatch(updateEvents(data));
+  } catch (error) {
+    console.log(error);
   }
 }
 export const deleteEventsAsync = event => async (dispatch, getState) => {
   try {
-    const { token } = getState();
-    const res = await fetch(endPoint, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ ...event }),
-    });
-    const events = await res.json();
-    dispatch(updateEvents(events));
-  } catch (e) {
-    console.error(e);
+    const data = await fetchData('Events', 'DELETE', event);
+    dispatch(updateEvents(data));
+  } catch (error) {
+    console.log(error);
   }
 }
 export const generateNewId = events => {
