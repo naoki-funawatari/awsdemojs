@@ -75,7 +75,7 @@ export default () => {
       );
       dispatch(updateToken({ ...data }));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   const persist = e => {
