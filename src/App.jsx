@@ -47,7 +47,7 @@ const PrivateRoute = ({ children, path }) => {
 // 認証判定用のダミー関数
 const isAuthenticated = token => token !== null;
 // const isAuthenticated = async token => {
-//   const res = await fetch('https://localhost:44335/Authenticated', {
+//   const res = await fetch('https://naoki-funawatari.tk/api/Authenticated', {
 //     method: 'POST',
 //     headers: {
 //       'Content-Type': 'application/json',

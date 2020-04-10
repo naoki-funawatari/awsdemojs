@@ -67,7 +67,7 @@ export default ({ location }) => {
       return persist(e);
     }
 
-    const res = await fetch('https://localhost:44335/Token', {
+    const res = await fetch('https://naoki-funawatari.tk/api/Token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `grant_type=password&username=${id}&password=${password}`

@@ -27,7 +27,7 @@ export const {
 
 export const updateUserAsync = () => async (dispatch, getState) => {
   const { token } = getState();
-  const res = await fetch('https://localhost:44335/Users', {
+  const res = await fetch('https://naoki-funawatari.tk/api/Users', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

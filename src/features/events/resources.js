@@ -16,7 +16,7 @@ export const {
   updateResources
 } = slice.actions;
 
-const endPoint = 'https://localhost:44335/Resources';
+const endPoint = 'https://naoki-funawatari.tk/api/Resources';
 
 export const getResourcesAsync = () => async (dispatch, getState) => {
   try {

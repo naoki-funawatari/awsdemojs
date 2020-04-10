@@ -48,7 +48,7 @@ export const {
   deleteEvents,
 } = slice.actions;
 
-const endPoint = 'https://localhost:44335/Events';
+const endPoint = 'https://naoki-funawatari.tk/api/Events';
 
 export const getEventsAsync = () => async (dispatch, getState) => {
   try {

@@ -60,7 +60,7 @@ export default () => {
       return persist(e);
     }
 
-    const res = await fetch('https://localhost:44335/Users', {
+    const res = await fetch('https://naoki-funawatari.tk/api/Users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
