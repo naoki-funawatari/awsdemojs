@@ -9,6 +9,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TextField from '@material-ui/core/TextField';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,19 @@ const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
+  addCell: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  addText: {
+    flexGrow: 1
+  },
+  addIcon: {
+    flexShrink: 1
+  },
+  svg: {
+    marginTop: 18
+  }
 }));
 const own = 1;
 
@@ -40,15 +55,27 @@ export default () => {
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Name</TableCell>
+                <TableCell>Name</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {resources.filter(resoruce => resoruce.id !== own).map((resource) => (
                 <TableRow key={resource.id}>
-                  <TableCell align="center">{resource.title}</TableCell>
+                  <TableCell>{resource.title}</TableCell>
                 </TableRow>
               ))}
+              <TableRow key="new_resource">
+                <TableCell>
+                  <div className={classes.addCell}>
+                    <div className={classes.addText} >
+                      <TextField id="standard-basic" label="New Resource Name" fullWidth />
+                    </div>
+                    <div className={classes.addIcon}>
+                      <AddCircleOutlineOutlinedIcon className={classes.svg} />
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </Paper>
