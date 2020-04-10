@@ -5,10 +5,9 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
 import {
   getEventsAsync,
-  postEventsAsync,
-  putEventsAsync,
-  deleteEventsAsync,
-  getParsedEvents
+  postEvents, postEventsAsync,
+  putEvents, putEventsAsync,
+  deleteEvents, deleteEventsAsync
 } from './events';
 import { updateResourcesAsync } from './resources';
 import Views from './Views';
@@ -25,8 +24,7 @@ export default ({ location }) => {
   if (location === "/resource") {
 
   }
-  const events = getParsedEvents();
-  const { resources } = useSelector(state => state);
+  const { resources, events } = useSelector(state => state);
   const dispatch = useDispatch();
   const updateAsync = useCallback(() => {
     dispatch(getEventsAsync());
@@ -36,51 +34,60 @@ export default ({ location }) => {
   useEffect(updateAsync, [updateAsync]);
 
   const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
-    dispatch(putEventsAsync({
+    const newEvent = {
       id: event.id,
       title: event.title,
-      start,
-      end,
+      start: start.toISOString(),
+      end: end.toISOString(),
       allDay: !!isAllDay,
       resourceId
-    }));
+    }
+    dispatch(putEvents({ ...newEvent }));
+    dispatch(putEventsAsync({ ...newEvent }));
   }
   const handleEventResize = ({ event, start, end }) => {
-    dispatch(putEventsAsync({
+    const newEvent = {
       id: event.id,
       title: event.title,
-      start,
-      end,
+      start: start.toISOString(),
+      end: end.toISOString(),
       allDay: event.allDay,
       resourceId: event.resourceId
-    }));
+    }
+    dispatch(putEvents({ ...newEvent }));
+    dispatch(putEventsAsync({ ...newEvent }));
   }
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
-      dispatch(postEventsAsync({
+      const newEvent = {
         title,
-        start,
-        end,
+        start: start.toISOString(),
+        end: end.toISOString(),
         allDay: slots.length === 1,
         resourceId: resourceId || 1
-      }));
+      }
+      dispatch(postEvents({ ...newEvent }));
+      dispatch(postEventsAsync({ ...newEvent }));
     }
   }
   const handleDoubleClickEvent = ({ id, allDay, start, end, resourceId }) => {
     const title = window.prompt('New Event name');
     if (title) {
       if (title === "delete") {
+        dispatch(deleteEvents({ id }));
         dispatch(deleteEventsAsync({ id }));
       } else {
-        dispatch(putEventsAsync({
+        const newEvent = {
           id,
           title,
-          start,
-          end,
+          start: start.toISOString(),
+          end: end.toISOString(),
           allDay,
           resourceId
-        }));
+        }
+        dispatch(putEvents({ ...newEvent }));
+        dispatch(putEventsAsync({ ...newEvent }));
       }
     }
   }
@@ -108,7 +115,11 @@ export default ({ location }) => {
       selectable
       resizable
       resources={resources}
-      events={events}
+      events={events.map(event => ({
+        ...event,
+        start: new Date(event.start),
+        end: new Date(event.end)
+      }))}
       onNavigate={handleNavigate}
       onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
