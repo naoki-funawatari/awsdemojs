@@ -31,8 +31,8 @@ export default () => {
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Switch>
-          <Route path="/resource" component={Schedules} />
-          <Route path="/calendar" component={Schedules} />
+          <Route path="/schedules" component={Schedules} />
+          <Route path="/personal" component={Schedules} />
           <Route path="/" component={Dashboard} />
         </Switch>
         <Box pt={4}>

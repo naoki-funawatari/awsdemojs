@@ -108,7 +108,7 @@ export default ({ location }) => {
       max={moment('21:00pm', 'h:mma').toDate()}
       selectable
       resizable
-      resources={location.pathname === "/resource" ? resources : null}
+      resources={location.pathname === "/schedules" ? resources : null}
       events={events.map(event => ({
         ...event,
         start: new Date(event.start),
