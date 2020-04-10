@@ -1,7 +1,7 @@
 USE [duty_times]
 GO
 
-/****** Object:  Table [dbo].[resources]    Script Date: 2020/04/08 16:29:02 ******/
+/****** Object:  Table [dbo].[resources]    Script Date: 2020/04/10 13:14:39 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[resources](
-	[id] [int] NOT NULL,
+	[id] [int] IDENTITY(1,1) NOT NULL,
 	[title] [nvarchar](20) NOT NULL,
  CONSTRAINT [PK_resources] PRIMARY KEY CLUSTERED 
 (
