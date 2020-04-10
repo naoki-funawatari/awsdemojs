@@ -35,6 +35,6 @@ export const updateUserAsync = () => async dispatch => {
     );
     dispatch(updateUser({ ...data }));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

@@ -54,7 +54,7 @@ export const getEventsAsync = () => async dispatch => {
     const data = await fetchData('Events', 'GET', null);
     dispatch(updateEvents(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 export const postEventsAsync = event => async dispatch => {
@@ -62,7 +62,7 @@ export const postEventsAsync = event => async dispatch => {
     const data = await fetchData('Events', 'POST', event);
     dispatch(updateEvents(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 export const putEventsAsync = event => async dispatch => {
@@ -70,7 +70,7 @@ export const putEventsAsync = event => async dispatch => {
     const data = await fetchData('Events', 'PUT', event);
     dispatch(updateEvents(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 export const deleteEventsAsync = event => async (dispatch, getState) => {
@@ -78,7 +78,7 @@ export const deleteEventsAsync = event => async (dispatch, getState) => {
     const data = await fetchData('Events', 'DELETE', event);
     dispatch(updateEvents(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 export const generateNewId = events => {

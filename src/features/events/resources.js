@@ -22,7 +22,7 @@ export const getResourcesAsync = () => async dispatch => {
     const data = await fetchData('Resources', 'GET', null);
     dispatch(updateResources(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 export const postResourcesAsync = resource => async dispatch => {
@@ -30,6 +30,6 @@ export const postResourcesAsync = resource => async dispatch => {
     const data = await fetchData('Resources', 'POST', resource);
     dispatch(updateResources(data));
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
