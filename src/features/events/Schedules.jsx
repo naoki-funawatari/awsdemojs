@@ -18,12 +18,6 @@ const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default ({ location }) => {
-  if (location === "/calendar") {
-
-  }
-  if (location === "/resource") {
-
-  }
   const { resources, events } = useSelector(state => state);
   const dispatch = useDispatch();
   const updateAsync = useCallback(() => {
@@ -114,7 +108,7 @@ export default ({ location }) => {
       max={moment('21:00pm', 'h:mma').toDate()}
       selectable
       resizable
-      resources={resources}
+      resources={location.pathname === "/resource" ? resources : null}
       events={events.map(event => ({
         ...event,
         start: new Date(event.start),

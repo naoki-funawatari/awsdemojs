@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Dashboard from '../features/dashboard/Dashboard';
-import Resource from '../features/events/Resource';
-import Calendar from '../features/events/Calendar';
+import Schedules from '../features/events/Schedules';
 import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +31,8 @@ export default () => {
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Switch>
-          <Route path="/resource" component={Resource} />
-          <Route path="/calendar" component={Calendar} />
+          <Route path="/resource" component={Schedules} />
+          <Route path="/calendar" component={Schedules} />
           <Route path="/" component={Dashboard} />
         </Switch>
         <Box pt={4}>
