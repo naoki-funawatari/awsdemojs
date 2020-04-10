@@ -4,12 +4,14 @@ import token from "./authentication/token";
 import user from "./authentication/users";
 import events from "./events/events";
 import resources from "./events/resources";
+// import error from "./error/errorSlice";
 
 const reducer = combineReducers({
   token,
   user,
   events,
   resources,
+  // error,
 });
 
 const store = configureStore({ reducer });
