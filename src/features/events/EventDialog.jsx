@@ -13,18 +13,48 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
+const useStyles = makeStyles((theme) => ({
+  controls: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingTop: 0,
+  },
+  flexLeft: {
+    flexGrow: 1,
+    paddingLeft: 16,
+    textAlign: 'left',
+  },
+  flexRight: {
+    flexGrow: 1,
+    paddingRight: 8,
+    textAlign: 'right',
+  },
+}));
 
 export default function FormDialog() {
+  const classes = useStyles();
   const inputTitle = useRef(null);
+  const inputDelete = useRef(null);
   const { eventDialog } = useSelector(state => state);
   const { isOpen, isNew, id, title, start, end, allDay, resourceId } = eventDialog;
   const dispatch = useDispatch();
   const handleClose = () => dispatch(closeEventDialog());
   const handleSubmit = () => {
-    const inputTitleValue = inputTitle.current.value;
+    const title = `${inputTitle.current.value}`.trim();
+    const isDelete = !isNew && inputDelete.current.checked;
+
+    if (!isDelete && title === '') {
+      alert('Title を入力してください。');
+      return;
+    }
+
     const newEvent = {
       id,
-      title: inputTitleValue,
+      title,
       start,
       end,
       allDay,
@@ -34,14 +64,12 @@ export default function FormDialog() {
       dispatch(postEvents({ ...newEvent }));
       dispatch(postEventsAsync({ ...newEvent }));
     } else {
-      if (inputTitleValue) {
-        if (inputTitleValue === "delete") {
-          dispatch(deleteEvents({ id }));
-          dispatch(deleteEventsAsync({ id }));
-        } else {
-          dispatch(putEvents({ ...newEvent }));
-          dispatch(putEventsAsync({ ...newEvent }));
-        }
+      if (isDelete) {
+        dispatch(deleteEvents({ id }));
+        dispatch(deleteEventsAsync({ id }));
+      } else {
+        dispatch(putEvents({ ...newEvent }));
+        dispatch(putEventsAsync({ ...newEvent }));
       }
     }
     dispatch(closeEventDialog());
@@ -74,13 +102,20 @@ export default function FormDialog() {
           inputRef={inputTitle}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="secondary">
-          Cancel
+      <DialogActions className={classes.controls}>
+        <div className={classes.flexLeft}>
+          {!isNew && <FormControlLabel
+            control={<Checkbox color="default" inputRef={inputDelete} />}
+            label="delete" />}
+        </div>
+        <div className={classes.flexRight}>
+          <Button onClick={handleClose} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
         </Button>
-        <Button onClick={handleSubmit} color="primary">
-          Submit
-        </Button>
+        </div>
       </DialogActions>
     </Dialog>
   );
