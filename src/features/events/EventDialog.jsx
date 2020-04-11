@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import {
   postEvents, postEventsAsync,
@@ -15,13 +15,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/core/styles/useTheme';
 
 const useStyles = makeStyles((theme) => ({
   controls: {
     display: 'flex',
     flexDirection: 'row',
-    paddingTop: 0,
+    marginTop: 8,
+    marginBottom: 8,
   },
   flexLeft: {
     flexGrow: 1,
@@ -33,13 +41,45 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 8,
     textAlign: 'right',
   },
+  formControl: {
+    marginTop: 8,
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  },
 }));
 
-export default function FormDialog() {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+function getStyles(resourceId, selectedResourceIds, theme) {
+  return {
+    fontWeight:
+      selectedResourceIds
+        .indexOf(resourceId) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+export default () => {
   const classes = useStyles();
+  const theme = useTheme();
   const inputTitle = useRef(null);
   const inputDelete = useRef(null);
-  const { eventDialog } = useSelector(state => state);
+  const { resources, eventDialog } = useSelector(state => state);
   const { isOpen, isNew, id, title, start, end, allDay, resourceId } = eventDialog;
   const dispatch = useDispatch();
   const handleClose = () => dispatch(closeEventDialog());
@@ -74,6 +114,9 @@ export default function FormDialog() {
     }
     dispatch(closeEventDialog());
   }
+  // リソース
+  const [selectedResourceIds, setSelectedResourceIds] = useState([]);
+  const handleChange = event => setSelectedResourceIds(event.target.value);
 
   return (
     <Dialog
@@ -101,6 +144,37 @@ export default function FormDialog() {
           defaultValue={title}
           inputRef={inputTitle}
         />
+        <br />
+        <FormControl className={classes.formControl} fullWidth>
+          <InputLabel id="mutiple-resource-label">Resource</InputLabel>
+          <Select
+            labelId="mutiple-resource-label"
+            id="mutiple-resource"
+            multiple
+            value={selectedResourceIds}
+            onChange={handleChange}
+            input={<Input id="select-multiple-resource" />}
+            renderValue={selected => (
+              <div className={classes.chips}>
+                {selected.map((value) => (
+                  <Chip
+                    key={value}
+                    label={resources.find(resource => resource.id === value).title}
+                    className={classes.chip} />
+                ))}
+              </div>
+            )}
+            MenuProps={MenuProps}>
+            {resources.map(resource => (
+              <MenuItem
+                key={resource.id}
+                value={resource.id}
+                style={getStyles(resource.id, selectedResourceIds, theme)}>
+                {resource.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions className={classes.controls}>
         <div className={classes.flexLeft}>
