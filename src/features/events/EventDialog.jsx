@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import {
+  postEvents, postEventsAsync,
   putEvents, putEventsAsync,
   deleteEvents, deleteEventsAsync
 } from './events';
@@ -16,29 +17,34 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default function FormDialog() {
   const inputTitle = useRef(null);
   const { eventDialog } = useSelector(state => state);
-  const { isOpen, id, title, start, end, allDay, resourceId } = eventDialog;
+  const { isOpen, isNew, id, title, start, end, allDay, resourceId } = eventDialog;
   const dispatch = useDispatch();
   const handleClose = () => dispatch(closeEventDialog());
   const handleSubmit = () => {
     const inputTitleValue = inputTitle.current.value;
-    if (inputTitleValue) {
-      if (inputTitleValue === "delete") {
-        dispatch(deleteEvents({ id }));
-        dispatch(deleteEventsAsync({ id }));
-      } else {
-        const newEvent = {
-          id,
-          title: inputTitleValue,
-          start,
-          end,
-          allDay,
-          resourceId
+    const newEvent = {
+      id,
+      title: inputTitleValue,
+      start,
+      end,
+      allDay,
+      resourceId
+    }
+    if (isNew) {
+      dispatch(postEvents({ ...newEvent }));
+      dispatch(postEventsAsync({ ...newEvent }));
+    } else {
+      if (inputTitleValue) {
+        if (inputTitleValue === "delete") {
+          dispatch(deleteEvents({ id }));
+          dispatch(deleteEventsAsync({ id }));
+        } else {
+          dispatch(putEvents({ ...newEvent }));
+          dispatch(putEventsAsync({ ...newEvent }));
         }
-        dispatch(putEvents({ ...newEvent }));
-        dispatch(putEventsAsync({ ...newEvent }));
-        dispatch(closeEventDialog());
       }
     }
+    dispatch(closeEventDialog());
   }
 
   return (
@@ -49,7 +55,9 @@ export default function FormDialog() {
       aria-labelledby="form-dialog-title"
       fullWidth={true}
       maxWidth={"sm"}>
-      <DialogTitle id="form-dialog-title">Event</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        {`${isNew ? 'New' : 'Edit'} Event`}
+      </DialogTitle>
       <DialogContent>
         {/* <DialogContentText>
           To subscribe to this website, please enter your email address here. We will send updates

@@ -5,7 +5,6 @@ import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import moment from 'moment';
 import {
   getEventsAsync,
-  postEvents, postEventsAsync,
   putEvents, putEventsAsync,
 } from './events';
 import { getResourcesAsync } from './resources';
@@ -53,22 +52,20 @@ export default ({ location }) => {
     dispatch(putEventsAsync({ ...newEvent }));
   }
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
-    const title = window.prompt('New Event name');
-    if (title) {
-      const newEvent = {
-        title,
-        start: start.toISOString(),
-        end: end.toISOString(),
-        allDay: slots.length === 1,
-        resourceId: resourceId || 1
-      }
-      dispatch(postEvents({ ...newEvent }));
-      dispatch(postEventsAsync({ ...newEvent }));
-    }
+    dispatch(openEventDialog({
+      isOpen: true,
+      isNew: true,
+      title: '',
+      start: start.toISOString(),
+      end: end.toISOString(),
+      allDay: slots.length === 1,
+      resourceId: resourceId || 1
+    }));
   }
   const handleDoubleClickEvent = ({ id, title, allDay, start, end, resourceId }) => {
     dispatch(openEventDialog({
       isOpen: true,
+      isNew: false,
       id,
       title,
       start: start.toISOString(),
