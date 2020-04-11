@@ -7,10 +7,11 @@ import {
   getEventsAsync,
   postEvents, postEventsAsync,
   putEvents, putEventsAsync,
-  deleteEvents, deleteEventsAsync
 } from './events';
 import { getResourcesAsync } from './resources';
+import { openEventDialog } from './eventDialogSlice';
 import Views from './Views';
+import EventDialog from './EventDialog';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss';
 
@@ -65,25 +66,16 @@ export default ({ location }) => {
       dispatch(postEventsAsync({ ...newEvent }));
     }
   }
-  const handleDoubleClickEvent = ({ id, allDay, start, end, resourceId }) => {
-    const title = window.prompt('New Event name');
-    if (title) {
-      if (title === "delete") {
-        dispatch(deleteEvents({ id }));
-        dispatch(deleteEventsAsync({ id }));
-      } else {
-        const newEvent = {
-          id,
-          title,
-          start: start.toISOString(),
-          end: end.toISOString(),
-          allDay,
-          resourceId
-        }
-        dispatch(putEvents({ ...newEvent }));
-        dispatch(putEventsAsync({ ...newEvent }));
-      }
-    }
+  const handleDoubleClickEvent = ({ id, title, allDay, start, end, resourceId }) => {
+    dispatch(openEventDialog({
+      isOpen: true,
+      id,
+      title,
+      start: start.toISOString(),
+      end: end.toISOString(),
+      allDay,
+      resourceId
+    }));
   }
   const handleNavigate = (newDate, view, action) => {
     // console.log(newDate);
@@ -97,7 +89,7 @@ export default ({ location }) => {
     updateAsync();
   }
 
-  return (
+  return (<>
     <DragAndDropCalendar
       localizer={localizer}
       style={{ height: 700 }}
@@ -130,5 +122,6 @@ export default ({ location }) => {
       onDoubleClickEvent={handleDoubleClickEvent}
       defaultDate={new Date()}
     />
-  );
+    <EventDialog />
+  </>);
 }
