@@ -9,12 +9,6 @@ export default () => {
   return (
     <Router>
       <Switch>
-        <CustomRoute path="/signin">
-          <SignIn />
-        </CustomRoute>
-        <CustomRoute path="/signup">
-          <SignUp />
-        </CustomRoute>
         <CustomRoute path="/">
           {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
           <Contents />
