@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { updateUserAsync } from '../features/authentication/users';
+import { updateUserAsync } from '../features/authentication/usersSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './Navigation';
 import Main from './Main';

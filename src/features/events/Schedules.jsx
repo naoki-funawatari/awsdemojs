@@ -6,8 +6,8 @@ import moment from 'moment';
 import {
   getEventsAsync,
   putEvents, putEventsAsync,
-} from './events';
-import { getResourcesAsync } from './resources';
+} from './eventsSlice';
+import { getResourcesAsync } from './resourcesSlice';
 import { openEventDialog } from './eventDialogSlice';
 import Views from './Views';
 import EventDialog from './EventDialog';

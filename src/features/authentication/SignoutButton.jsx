@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { deleteToken } from './token';
+import { deleteToken } from './tokenSlice';
 import { Button } from '@material-ui/core';
 
 export default () => {

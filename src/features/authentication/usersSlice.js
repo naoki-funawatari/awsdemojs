@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteToken } from './token';
+import { deleteToken } from './tokenSlice';
 import { fetchData } from '../apiWrapper';
 
 const initialState = {

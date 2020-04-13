@@ -4,7 +4,7 @@ import {
   postEvents, postEventsAsync,
   putEvents, putEventsAsync,
   deleteEvents, deleteEventsAsync
-} from './events';
+} from './eventsSlice';
 import { closeEventDialog } from './eventDialogSlice';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
