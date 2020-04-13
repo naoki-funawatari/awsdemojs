@@ -59,10 +59,13 @@ export default ({ location }) => {
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: slots.length === 1,
-      resourceId: resourceId || 1
+      resourceIds: [resourceId || 1]
     }));
   }
-  const handleDoubleClickEvent = ({ id, title, allDay, start, end, resourceId }) => {
+  const handleDoubleClickEvent = ({ id, title, allDay, start, end }) => {
+    const resourceIds = events
+      .filter(event => event.id === id)
+      .map(event => event.resourceId);
     dispatch(openEventDialog({
       isOpen: true,
       isNew: false,
@@ -71,7 +74,7 @@ export default ({ location }) => {
       start: start.toISOString(),
       end: end.toISOString(),
       allDay,
-      resourceId
+      resourceIds
     }));
   }
   const handleNavigate = (newDate, view, action) => {

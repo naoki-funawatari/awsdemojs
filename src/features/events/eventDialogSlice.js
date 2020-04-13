@@ -7,7 +7,7 @@ const initialState = {
   allDay: null,
   start: null,
   end: null,
-  resourceId: null
+  resourceIds: []
 };
 
 const slice = createSlice({

@@ -16,9 +16,9 @@ const slice = createSlice({
       const start = action.payload.start;
       const end = action.payload.end;
       const resourceIds = action.payload.resourceIds;
-      const newEvent = { id, title, allDay, start, end, resourceIds }
-      console.table(newEvent);
-      return [...state, newEvent];
+      const newEvents = resourceIds.map(resourceId => ({ id, title, allDay, start, end, resourceId }))
+      console.table(newEvents);
+      return [...state, ...newEvents];
     },
     putEvents: (state, action) => {
       console.log('------------------putEvents------------------');
@@ -28,9 +28,10 @@ const slice = createSlice({
       const start = action.payload.start;
       const end = action.payload.end;
       const resourceIds = action.payload.resourceIds;
-      const newEvent = { id, title, allDay, start, end, resourceIds }
-      console.table(newEvent);
-      return state.map(event => event.id === id ? newEvent : event);
+      const newEvents = resourceIds.map(resourceId => ({ id, title, allDay, start, end, resourceId }))
+      console.table(newEvents);
+      const removed = state.filter(event => event.id !== id);
+      return [...removed, ...newEvents];
     },
     deleteEvents: (state, action) => {
       console.log('------------------deleteEvents------------------');

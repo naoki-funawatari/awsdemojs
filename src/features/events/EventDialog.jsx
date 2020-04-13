@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import {
   postEvents, postEventsAsync,
@@ -80,7 +80,7 @@ export default () => {
   const inputTitle = useRef(null);
   const inputDelete = useRef(null);
   const { resources, eventDialog } = useSelector(state => state);
-  const { isOpen, isNew, id, title, start, end, allDay } = eventDialog;
+  const { isOpen, isNew, id, title, start, end, allDay, resourceIds } = eventDialog;
   const dispatch = useDispatch();
   const [selectedResourceIds, setSelectedResourceIds] = useState([]);
   const handleChange = event => setSelectedResourceIds(event.target.value);
@@ -116,6 +116,10 @@ export default () => {
     }
     dispatch(closeEventDialog());
   }
+
+  useEffect(() => {
+    setSelectedResourceIds(resourceIds)
+  }, [resourceIds])
 
   return (
     <Dialog
