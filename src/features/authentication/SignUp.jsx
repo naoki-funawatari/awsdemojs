@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from 'react-router-dom';
 import { deleteToken } from './tokenSlice';
@@ -37,25 +37,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const inputId = useRef(null);
-  const inputPassword = useRef(null);
-  const inputName = useRef(null);
-  const inputEmail = useRef(null);
+  const [id, setId] = useState({ value: '', isError: false });
+  const [password, setPassword] = useState({ value: '', isError: false });
+  const [name, setName] = useState({ value: '', isError: false });
+  const [email, setEmail] = useState({ value: '', isError: false });
   const dispatch = useDispatch();
   const history = useHistory();
   const signUp = async (e) => {
     dispatch(deleteToken());
-    const id = `${inputId.current.value}`.trim();
-    const password = `${inputPassword.current.value}`.trim();
-    const name = `${inputName.current.value}`.trim();
-    const email = `${inputEmail.current.value}`.trim();
-
-    if (id === '') {
+    if (id.value === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
 
-    if (password === '') {
+    if (password.value === '') {
       alert('PASSWORD を入力してください。');
       return persist(e);
     }
@@ -65,7 +60,12 @@ export default () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id, password, name, email })
+      body: JSON.stringify({
+        id: id.value,
+        password: password.value,
+        name: name.value,
+        email: email.value
+      })
     })
 
     if (res.status === 400) {
@@ -75,11 +75,7 @@ export default () => {
 
     if (res.status === 204) {
       alert('登録に成功しました。');
-      inputId.current.value = '';
-      inputPassword.current.value = '';
-      inputName.current.value = '';
-      inputEmail.current.value = '';
-      history.push({ pathname: '/', state: { id } });
+      history.push({ pathname: '/', state: { id: id.value } });
     }
   }
   const persist = e => {
@@ -110,7 +106,9 @@ export default () => {
                 name="ID"
                 label="ID"
                 maxLength={7}
-                inputRef={inputId}
+                value={id.value}
+                error={id.isError}
+                onChange={e => setId({ value: e.target.value, isError: false })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -123,7 +121,9 @@ export default () => {
                 type="password"
                 label="Password"
                 maxLength={100}
-                inputRef={inputPassword}
+                value={password.value}
+                error={password.isError}
+                onChange={e => setPassword({ value: e.target.value, isError: false })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -134,7 +134,9 @@ export default () => {
                 name="name"
                 label="Your Name"
                 maxLength={50}
-                inputRef={inputName}
+                value={name.value}
+                error={name.isError}
+                onChange={e => setName({ value: e.target.value, isError: false })}
               />
             </Grid>
             <Grid item xs={12}>
@@ -146,7 +148,9 @@ export default () => {
                 type="email"
                 label="Mail Address"
                 maxLength={100}
-                inputRef={inputEmail}
+                value={email.value}
+                error={email.isError}
+                onChange={e => setEmail({ value: e.target.value, isError: false })}
               />
             </Grid>
             <Grid item xs={12}>
