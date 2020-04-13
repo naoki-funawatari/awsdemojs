@@ -80,8 +80,10 @@ export default () => {
   const inputTitle = useRef(null);
   const inputDelete = useRef(null);
   const { resources, eventDialog } = useSelector(state => state);
-  const { isOpen, isNew, id, title, start, end, allDay, resourceId } = eventDialog;
+  const { isOpen, isNew, id, title, start, end, allDay } = eventDialog;
   const dispatch = useDispatch();
+  const [selectedResourceIds, setSelectedResourceIds] = useState([]);
+  const handleChange = event => setSelectedResourceIds(event.target.value);
   const handleClose = () => dispatch(closeEventDialog());
   const handleSubmit = () => {
     const title = `${inputTitle.current.value}`.trim();
@@ -98,7 +100,7 @@ export default () => {
       start,
       end,
       allDay,
-      resourceId
+      resourceIds: selectedResourceIds
     }
     if (isNew) {
       dispatch(postEvents({ ...newEvent }));
@@ -114,9 +116,6 @@ export default () => {
     }
     dispatch(closeEventDialog());
   }
-  // リソース
-  const [selectedResourceIds, setSelectedResourceIds] = useState([]);
-  const handleChange = event => setSelectedResourceIds(event.target.value);
 
   return (
     <Dialog

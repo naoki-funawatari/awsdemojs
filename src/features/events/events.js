@@ -15,8 +15,8 @@ const slice = createSlice({
       const allDay = action.payload.allDay;
       const start = action.payload.start;
       const end = action.payload.end;
-      const resourceId = action.payload.resourceId;
-      const newEvent = { id, title, allDay, start, end, resourceId }
+      const resourceIds = action.payload.resourceIds;
+      const newEvent = { id, title, allDay, start, end, resourceIds }
       console.table(newEvent);
       return [...state, newEvent];
     },
@@ -27,8 +27,8 @@ const slice = createSlice({
       const allDay = action.payload.allDay;
       const start = action.payload.start;
       const end = action.payload.end;
-      const resourceId = action.payload.resourceId;
-      const newEvent = { id, title, allDay, start, end, resourceId }
+      const resourceIds = action.payload.resourceIds;
+      const newEvent = { id, title, allDay, start, end, resourceIds }
       console.table(newEvent);
       return state.map(event => event.id === id ? newEvent : event);
     },
