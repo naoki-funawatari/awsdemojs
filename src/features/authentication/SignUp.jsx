@@ -46,12 +46,12 @@ export default () => {
   const signUp = async (e) => {
     dispatch(deleteToken());
     if (id.value.trim() === '') {
-      alert('ID を入力してください。');
+      setId({ value: id.value, isError: true });
       return persist(e);
     }
 
     if (password.value.trim() === '') {
-      alert('PASSWORD を入力してください。');
+      setPassword({ value: password.value, isError: true });
       return persist(e);
     }
 
@@ -108,6 +108,7 @@ export default () => {
                 maxLength={7}
                 value={id.value}
                 error={id.isError}
+                helperText={id.isError && "Enter your ID."}
                 onChange={e => setId({ value: e.target.value, isError: false })}
               />
             </Grid>
@@ -123,6 +124,7 @@ export default () => {
                 maxLength={100}
                 value={password.value}
                 error={password.isError}
+                helperText={password.isError && "Enter your password."}
                 onChange={e => setPassword({ value: e.target.value, isError: false })}
               />
             </Grid>

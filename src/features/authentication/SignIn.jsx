@@ -56,16 +56,13 @@ export default () => {
   const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
-
     if (id.value.trim() === '') {
       setId({ value: id.value, isError: true });
-      alert('ID を入力してください。');
       return persist(e);
     }
 
     if (password.value.trim() === '') {
       setPassword({ value: password.value, isError: true });
-      alert('PASSWORD を入力してください。');
       return persist(e);
     }
 
@@ -111,6 +108,7 @@ export default () => {
               maxLength={7}
               value={id.value}
               error={id.isError}
+              helperText={id.isError && "Enter your ID."}
               onChange={e => setId({ value: e.target.value, isError: false })}
             />
             <TextField
@@ -125,6 +123,7 @@ export default () => {
               maxLength={100}
               value={password.value}
               error={password.isError}
+              helperText={password.isError && "Enter your password."}
               onChange={e => setPassword({ value: e.target.value, isError: false })}
             />
             <FormControlLabel
