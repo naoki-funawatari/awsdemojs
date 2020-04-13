@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 import { deleteToken, updateToken } from './tokenSlice';
@@ -49,21 +49,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const inputId = useRef(null);
-  const inputPassword = useRef(null);
+  const classes = useStyles();
+  const [id, setId] = useState({ value: 'T113001', isError: false });
+  const [password, setPassword] = useState({ value: '', isError: false });
   const dispatch = useDispatch();
   const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
-    const id = `${inputId.current.value}`.trim();
-    const password = `${inputPassword.current.value}`.trim();
 
-    if (id === '') {
+    if (id.value === '') {
+      setId({ value: id.value, isError: true });
       alert('ID を入力してください。');
       return persist(e);
     }
 
-    if (password === '') {
+    if (password.value === '') {
+      setPassword({ value: password.value, isError: true });
       alert('PASSWORD を入力してください。');
       return persist(e);
     }
@@ -72,7 +73,7 @@ export default () => {
       const data = await fetchData(
         'Token',
         'POST',
-        `grant_type=password&username=${id}&password=${password}`
+        `grant_type=password&username=${id.value}&password=${password.value}`
       );
       dispatch(updateToken({ ...data }));
       history.push({ pathname: '/' })
@@ -84,7 +85,6 @@ export default () => {
     e.persist();
     return false;
   }
-  const classes = useStyles();
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -109,8 +109,9 @@ export default () => {
               name="id"
               label="ID"
               maxLength={7}
-              inputRef={inputId}
-              defaultValue={"T113001"}
+              value={id.value}
+              error={id.isError}
+              onChange={e => setId({ value: e.target.value, isError: false })}
             />
             <TextField
               variant="outlined"
@@ -122,7 +123,9 @@ export default () => {
               type="password"
               id="password"
               maxLength={100}
-              inputRef={inputPassword}
+              value={password.value}
+              error={password.isError}
+              onChange={e => setPassword({ value: e.target.value, isError: false })}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
