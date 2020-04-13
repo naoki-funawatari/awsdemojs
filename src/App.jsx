@@ -11,17 +11,17 @@ export default () => {
       <Switch>
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
-        <PrivateRoute path="/">
+        <CustomRoute path="/">
           {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
           <Contents />
           {/* ↑↑↑ ここに書かれているものが children に渡される ↑↑↑ */}
-        </PrivateRoute>
+        </CustomRoute>
       </Switch>
     </Router>
   );
 }
 
-const PrivateRoute = ({ children, path }) => {
+const CustomRoute = ({ children, path }) => {
   const token = useSelector(state => state.token);
 
   return (
