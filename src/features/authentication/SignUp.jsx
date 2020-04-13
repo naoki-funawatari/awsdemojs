@@ -102,8 +102,8 @@ export default () => {
                 required
                 fullWidth
                 autoFocus
-                id="ID"
-                name="ID"
+                id="id"
+                name="id"
                 label="ID"
                 maxLength={7}
                 value={id.value}
@@ -116,10 +116,10 @@ export default () => {
                 variant="outlined"
                 required
                 fullWidth
-                id="password"
                 name="password"
-                type="password"
                 label="Password"
+                type="password"
+                id="password"
                 maxLength={100}
                 value={password.value}
                 error={password.isError}
