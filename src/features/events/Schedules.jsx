@@ -28,25 +28,33 @@ export default ({ location }) => {
   useEffect(updateAsync, [updateAsync]);
 
   const handleEventDrop = ({ event, start, end, isAllDay, resourceId }) => {
+    const resourceIds = events
+      .filter(_event => _event.id === event.id)
+      .map(_event => _event.resourceId === event.resourceId
+        ? resourceId ?? event.resourceId
+        : _event.resourceId);
     const newEvent = {
       id: event.id,
       title: event.title,
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: !!isAllDay,
-      resourceId: resourceId ?? event.resourceId
+      resourceIds: [...new Set(resourceIds)]
     }
     dispatch(putEvents({ ...newEvent }));
     dispatch(putEventsAsync({ ...newEvent }));
   }
   const handleEventResize = ({ event, start, end }) => {
+    const resourceIds = events
+      .filter(_event => _event.id === event.id)
+      .map(_event => _event.resourceId);
     const newEvent = {
       id: event.id,
       title: event.title,
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: event.allDay,
-      resourceId: event.resourceId
+      resourceIds
     }
     dispatch(putEvents({ ...newEvent }));
     dispatch(putEventsAsync({ ...newEvent }));
