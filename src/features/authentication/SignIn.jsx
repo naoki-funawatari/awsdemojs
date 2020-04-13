@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch } from "react-redux";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { deleteToken, updateToken } from './tokenSlice';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -52,6 +52,7 @@ export default () => {
   const inputId = useRef(null);
   const inputPassword = useRef(null);
   const dispatch = useDispatch();
+  const history = useHistory();
   const signIn = async (e) => {
     dispatch(deleteToken());
     const id = `${inputId.current.value}`.trim();
@@ -74,6 +75,7 @@ export default () => {
         `grant_type=password&username=${id}&password=${password}`
       );
       dispatch(updateToken({ ...data }));
+      history.push({ pathname: '/' })
     } catch (error) {
       console.error(error);
     }

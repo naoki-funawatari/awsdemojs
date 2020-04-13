@@ -9,8 +9,12 @@ export default () => {
   return (
     <Router>
       <Switch>
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
+        <CustomRoute path="/signin">
+          <SignIn />
+        </CustomRoute>
+        <CustomRoute path="/signup">
+          <SignUp />
+        </CustomRoute>
         <CustomRoute path="/">
           {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
           <Contents />
@@ -28,17 +32,17 @@ const CustomRoute = ({ children, path }) => {
     <Route
       path={path}
       render={({ location }) => {
-        if (isAuthenticated(token)) {
-          // 認証済みの場合は、トップページを表示する
-          return children;
-        }
-        if (location.pathname === "/") {
-          // URL が "/" の場合はサインインページを表示する
+        if (location.pathname === "/signin") {
           return <SignIn />;
         }
-        // 未認証で、URL が "/" 以外の場合は "/" にリダイレクトする
-        // URL が "/" となるので、結果的にサインインページが表示される
-        return <Redirect to={{ pathname: "/" }} />;
+        if (location.pathname === "/signup") {
+          return <SignUp />
+        }
+        if (isAuthenticated(token)) {
+          return children;
+        } else {
+          return <Redirect to={{ pathname: "/signin" }} />;
+        }
       }}
     />
   );
