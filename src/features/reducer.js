@@ -2,9 +2,9 @@ import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import token from "./authentication/tokenSlice";
 import user from "./authentication/usersSlice";
-import events from "./events/eventsSlice";
-import resources from "./events/resourcesSlice";
-import eventDialog from "./events/eventDialogSlice";
+import events from "./schedule/eventsSlice";
+import resources from "./schedule/resourcesSlice";
+import eventDialog from "./schedule/eventDialogSlice";
 // import error from "./error/errorSlice";
 
 const reducer = combineReducers({
