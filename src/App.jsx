@@ -9,7 +9,7 @@ export default () => {
   return (
     <Router>
       <Switch>
-        <CustomRoute path="/">
+        <CustomRoute>
           {/* ↓↓↓ ここに書かれているものが children に渡される ↓↓↓ */}
           <Contents />
           {/* ↑↑↑ ここに書かれているものが children に渡される ↑↑↑ */}
@@ -24,7 +24,6 @@ const CustomRoute = ({ children, path }) => {
 
   return (
     <Route
-      path={path}
       render={({ location }) => {
         if (location.pathname === "/signin") {
           return <SignIn />;
