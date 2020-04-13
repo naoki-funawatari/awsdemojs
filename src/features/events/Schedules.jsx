@@ -109,19 +109,13 @@ export default ({ location }) => {
       selectable
       resizable
       resources={location.pathname === "/schedules" ? resources : null}
-      events={location.pathname === "/schedules"
-        ? events.map(event => ({
+      events={events
+        .filter(event => location.pathname === "/schedules" || event.resourceId === 1)
+        .map(event => ({
           ...event,
           start: new Date(event.start),
           end: new Date(event.end)
-        }))
-        : events
-          .filter(event => event.resourceId === 1)
-          .map(event => ({
-            ...event,
-            start: new Date(event.start),
-            end: new Date(event.end)
-          }))}
+        }))}
       onNavigate={handleNavigate}
       onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
