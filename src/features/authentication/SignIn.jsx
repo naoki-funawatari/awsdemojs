@@ -57,13 +57,13 @@ export default () => {
   const signIn = async (e) => {
     dispatch(deleteToken());
 
-    if (id.value === '') {
+    if (id.value.trim() === '') {
       setId({ value: id.value, isError: true });
       alert('ID を入力してください。');
       return persist(e);
     }
 
-    if (password.value === '') {
+    if (password.value.trim() === '') {
       setPassword({ value: password.value, isError: true });
       alert('PASSWORD を入力してください。');
       return persist(e);

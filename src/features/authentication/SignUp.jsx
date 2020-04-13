@@ -45,12 +45,12 @@ export default () => {
   const history = useHistory();
   const signUp = async (e) => {
     dispatch(deleteToken());
-    if (id.value === '') {
+    if (id.value.trim() === '') {
       alert('ID を入力してください。');
       return persist(e);
     }
 
-    if (password.value === '') {
+    if (password.value.trim() === '') {
       alert('PASSWORD を入力してください。');
       return persist(e);
     }
