@@ -74,7 +74,7 @@ function getStyles(resourceId, selectedResourceIds, theme) {
   };
 }
 
-export default () => {
+export default ({ view, range }) => {
   const classes = useStyles();
   const theme = useTheme();
   const inputTitle = useRef(null);
@@ -104,14 +104,14 @@ export default () => {
     }
     if (isNew) {
       dispatch(postEvents({ ...newEvent }));
-      dispatch(postEventsAsync({ ...newEvent }));
+      dispatch(postEventsAsync({ ...newEvent }, view, range));
     } else {
       if (isDelete) {
         dispatch(deleteEvents({ id }));
-        dispatch(deleteEventsAsync({ id }));
+        dispatch(deleteEventsAsync({ id }, view, range));
       } else {
         dispatch(putEvents({ ...newEvent }));
-        dispatch(putEventsAsync({ ...newEvent }));
+        dispatch(putEventsAsync({ ...newEvent }, view, range));
       }
     }
     dispatch(closeEventDialog());

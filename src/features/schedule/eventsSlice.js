@@ -50,33 +50,42 @@ export const {
   deleteEvents,
 } = slice.actions;
 
-export const getEventsAsync = () => async dispatch => {
+const createUrl = (view, range) =>
+  `Events`
+  + `?view=${view}`
+  + range.map(v => `&range=${v.toISOString()}`).join('');
+
+export const getEventsAsync = (view, range) => async dispatch => {
   try {
-    const data = await fetchData('Events', 'GET', null);
+    const url = createUrl(view, range);
+    const data = await fetchData(url, 'GET', null);
     dispatch(updateEvents(data));
   } catch (error) {
     console.error(error);
   }
 }
-export const postEventsAsync = event => async dispatch => {
+export const postEventsAsync = (event, view, range) => async dispatch => {
   try {
-    const data = await fetchData('Events', 'POST', event);
+    const url = createUrl(view, range);
+    const data = await fetchData(url, 'POST', { ...event });
     dispatch(updateEvents(data));
   } catch (error) {
     console.error(error);
   }
 }
-export const putEventsAsync = event => async dispatch => {
+export const putEventsAsync = (event, view, range) => async dispatch => {
   try {
-    const data = await fetchData('Events', 'PUT', event);
+    const url = createUrl(view, range);
+    const data = await fetchData(url, 'PUT', { ...event });
     dispatch(updateEvents(data));
   } catch (error) {
     console.error(error);
   }
 }
-export const deleteEventsAsync = event => async (dispatch, getState) => {
+export const deleteEventsAsync = (event, view, range) => async dispatch => {
   try {
-    const data = await fetchData('Events', 'DELETE', event);
+    const url = createUrl(view, range);
+    const data = await fetchData(url, 'DELETE', { ...event });
     dispatch(updateEvents(data));
   } catch (error) {
     console.error(error);

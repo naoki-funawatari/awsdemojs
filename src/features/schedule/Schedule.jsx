@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
@@ -18,12 +18,14 @@ const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
 export default ({ location }) => {
+  const [view, seView] = useState(Views.DAY);
+  const [range, setRange] = useState([new Date()]);
   const { resources, events } = useSelector(state => state);
   const dispatch = useDispatch();
   const updateAsync = useCallback(() => {
-    dispatch(getEventsAsync());
+    dispatch(getEventsAsync(view, range));
     dispatch(getResourcesAsync());
-  }, [dispatch]);
+  }, [dispatch, view, range]);
 
   useEffect(updateAsync, [updateAsync]);
 
@@ -42,7 +44,7 @@ export default ({ location }) => {
       resourceIds: [...new Set(resourceIds)]
     }
     dispatch(putEvents({ ...newEvent }));
-    dispatch(putEventsAsync({ ...newEvent }));
+    dispatch(putEventsAsync({ ...newEvent }, view, range));
   }
   const handleEventResize = ({ event, start, end }) => {
     const resourceIds = events
@@ -57,7 +59,7 @@ export default ({ location }) => {
       resourceIds
     }
     dispatch(putEvents({ ...newEvent }));
-    dispatch(putEventsAsync({ ...newEvent }));
+    dispatch(putEventsAsync({ ...newEvent }, view, range));
   }
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     dispatch(openEventDialog({
@@ -85,16 +87,14 @@ export default ({ location }) => {
       resourceIds
     }));
   }
-  const handleNavigate = (newDate, view, action) => {
-    // console.log(newDate);
-    // console.log(view);
-    // console.log(action);
-    updateAsync();
-  }
-  const handleRangeChange = (range, view) => {
-    // console.log(range);
-    // console.log(view);
-    updateAsync();
+  const handleRangeChange = (range, view_) => {
+    seView(view_ ?? view);
+    if (Array.isArray(range)) {
+      setRange(range)
+    } else {
+      const { start, end } = range;
+      setRange([start, end])
+    }
   }
 
   return (<>
@@ -102,7 +102,7 @@ export default ({ location }) => {
       localizer={localizer}
       style={{ height: 700 }}
       views={Object.values(Views)}
-      defaultView={Views.DAY}
+      defaultView={view}
       step={15}
       min={moment('07:00am', 'h:mma').toDate()}
       max={moment('21:00pm', 'h:mma').toDate()}
@@ -116,7 +116,6 @@ export default ({ location }) => {
           start: new Date(event.start),
           end: new Date(event.end)
         }))}
-      onNavigate={handleNavigate}
       onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
       onEventResize={handleEventResize}
@@ -124,6 +123,6 @@ export default ({ location }) => {
       onDoubleClickEvent={handleDoubleClickEvent}
       defaultDate={new Date()}
     />
-    <EventDialog />
+    <EventDialog view={view} range={range} />
   </>);
 }
