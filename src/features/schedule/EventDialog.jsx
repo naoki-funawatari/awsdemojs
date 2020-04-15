@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -77,12 +76,12 @@ function getStyles(resourceId, selectedResourceIds, theme) {
 export default ({ view, range }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { resources, eventDialog } = useSelector(state => state);
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [isDelete, setDelete] = useState(false);
-  const { resources, eventDialog } = useSelector(state => state);
-  const { isOpen, isNew, id, start, end, allDay, resourceIds } = eventDialog;
-  const dispatch = useDispatch();
   const [selectedResourceIds, setSelectedResourceIds] = useState([]);
+  const { isOpen, isNew, id, start, end, allDay, resourceIds } = eventDialog;
   const handleChange = event => setSelectedResourceIds(event.target.value);
   const handleClose = () => dispatch(closeEventDialog());
   const handleSubmit = () => {
