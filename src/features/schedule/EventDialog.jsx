@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import {
   postEvents, postEventsAsync,
@@ -77,18 +77,15 @@ function getStyles(resourceId, selectedResourceIds, theme) {
 export default ({ view, range }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const inputTitle = useRef(null);
-  const inputDelete = useRef(null);
+  const [title, setTitle] = useState('');
+  const [isDelete, setDelete] = useState(false);
   const { resources, eventDialog } = useSelector(state => state);
-  const { isOpen, isNew, id, title, start, end, allDay, resourceIds } = eventDialog;
+  const { isOpen, isNew, id, start, end, allDay, resourceIds } = eventDialog;
   const dispatch = useDispatch();
   const [selectedResourceIds, setSelectedResourceIds] = useState([]);
   const handleChange = event => setSelectedResourceIds(event.target.value);
   const handleClose = () => dispatch(closeEventDialog());
   const handleSubmit = () => {
-    const title = `${inputTitle.current.value}`.trim();
-    const isDelete = !isNew && inputDelete.current.checked;
-
     if (!isDelete && title === '') {
       alert('Title を入力してください。');
       return;
@@ -118,8 +115,13 @@ export default ({ view, range }) => {
   }
 
   useEffect(() => {
-    setSelectedResourceIds(resourceIds)
-  }, [resourceIds])
+    setTitle(eventDialog.title);
+    setDelete(false);
+  }, [eventDialog]);
+
+  useEffect(() => {
+    setSelectedResourceIds(resourceIds);
+  }, [resourceIds]);
 
   return (
     <Dialog
@@ -144,8 +146,8 @@ export default ({ view, range }) => {
           id="name"
           label="Title"
           fullWidth
-          defaultValue={title}
-          inputRef={inputTitle}
+          value={title}
+          onChange={e => setTitle(e.target.value)}
         />
         <br />
         <FormControl className={classes.formControl} fullWidth>
@@ -182,7 +184,11 @@ export default ({ view, range }) => {
       <DialogActions className={classes.controls}>
         <div className={classes.flexLeft}>
           {!isNew && <FormControlLabel
-            control={<Checkbox color="default" inputRef={inputDelete} />}
+            control={<Checkbox
+              color="default"
+              checked={isDelete}
+              onChange={e => setDelete(e.target.checked)}
+            />}
             label="delete" />}
         </div>
         <div className={classes.flexRight}>
