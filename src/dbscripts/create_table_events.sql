@@ -1,7 +1,7 @@
 USE [duty_times]
 GO
 
-/****** Object:  Table [dbo].[events]    Script Date: 2020/04/13 10:13:42 ******/
+/****** Object:  Table [dbo].[events]    Script Date: 2020/04/16 11:13:09 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -14,6 +14,7 @@ CREATE TABLE [dbo].[events](
 	[all_day] [bit] NOT NULL,
 	[start] [datetime] NOT NULL,
 	[end] [datetime] NOT NULL,
+	[color] [char](7) NOT NULL,
  CONSTRAINT [PK_events] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

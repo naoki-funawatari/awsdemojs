@@ -45,7 +45,7 @@ export default ({ location }) => {
       resourceIds: [...new Set(resourceIds)]
     }
     dispatch(putEvents({ ...newEvent }));
-    dispatch(putEventsAsync({ ...newEvent }, view, range));
+    dispatch(putEventsAsync({ ...newEvent }, view.current, range.current));
   }
   const handleEventResize = ({ event, start, end }) => {
     const resourceIds = events
@@ -60,7 +60,7 @@ export default ({ location }) => {
       resourceIds
     }
     dispatch(putEvents({ ...newEvent }));
-    dispatch(putEventsAsync({ ...newEvent }, view, range));
+    dispatch(putEventsAsync({ ...newEvent }, view.current, range.current));
   }
   const handleSelectSlot = ({ slots, start, end, resourceId }) => {
     dispatch(openEventDialog({
@@ -77,6 +77,9 @@ export default ({ location }) => {
     const resourceIds = events
       .filter(event => event.id === id)
       .map(event => event.resourceId);
+    const color = events
+      .filter(event => event.id === id)
+      .map(event => event.color);
     dispatch(openEventDialog({
       isOpen: true,
       isNew: false,
@@ -85,7 +88,8 @@ export default ({ location }) => {
       start: start.toISOString(),
       end: end.toISOString(),
       allDay,
-      resourceIds
+      resourceIds,
+      color,
     }));
   }
   const handleRangeChange = (range_, view_) => {
@@ -110,6 +114,10 @@ export default ({ location }) => {
       updateAsync();
     }
   }
+  const eventPropGetter = ({ id }) => ({
+    className: "",
+    style: { backgroundColor: events.find(event => event.id === id).color }
+  });
 
   return (<>
     <DragAndDropCalendar
@@ -130,6 +138,7 @@ export default ({ location }) => {
       onEventResize={handleEventResize}
       onSelectSlot={handleSelectSlot}
       onDoubleClickEvent={handleDoubleClickEvent}
+      eventPropGetter={eventPropGetter}
       defaultDate={new Date()}
     />
     <EventDialog view={view.current} range={range.current} />
