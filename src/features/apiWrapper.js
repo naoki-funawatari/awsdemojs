@@ -20,10 +20,10 @@ export const fetchData = async (resourceName, method, body) => {
     const res = await fetch(`${baseUrl}/${resourceName}`, params);
     const status = res.status;
     const statusText = responseStatusText[status];
-    console.table({
-      status,
-      statusText,
-    });
+    // console.table({
+    //   status,
+    //   statusText,
+    // });
 
     if (200 <= status && status < 300) {
       const data = await res.json();
