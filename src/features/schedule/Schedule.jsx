@@ -7,7 +7,7 @@ import {
   getEventsAsync,
   putEvents, putEventsAsync,
 } from './eventsSlice';
-import { getResourcesAsync } from './resourcesSlice';
+import { getResourcesAsync } from '../maintenance/resourcesSlice';
 import { openEventDialog } from './eventDialogSlice';
 import Views from './Views';
 import EventDialog from './EventDialog';

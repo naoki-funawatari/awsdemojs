@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import token from "./authentication/tokenSlice";
 import user from "./authentication/usersSlice";
 import events from "./schedule/eventsSlice";
-import resources from "./schedule/resourcesSlice";
+import resources from "./maintenance/resourcesSlice";
 import eventDialog from "./schedule/eventDialogSlice";
 // import error from "./error/errorSlice";
 
