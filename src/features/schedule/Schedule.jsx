@@ -119,7 +119,9 @@ export default ({ location }) => {
   }
   const eventPropGetter = ({ id }) => ({
     className: "",
-    style: { backgroundColor: events.find(event => event.id === id).color }
+    style: view.current === "agenda"
+      ? {}
+      : { backgroundColor: events.find(event => event.id === id).color }
   });
 
   return (<>
