@@ -36,13 +36,15 @@ export default ({ location }) => {
       .map(_event => _event.resourceId === event.resourceId
         ? resourceId ?? event.resourceId
         : _event.resourceId);
+    const color = events.find(_event => _event.id === event.id).color;
     const newEvent = {
       id: event.id,
       title: event.title,
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: !!isAllDay,
-      resourceIds: [...new Set(resourceIds)]
+      resourceIds: [...new Set(resourceIds)],
+      color,
     }
     dispatch(putEvents({ ...newEvent }));
     dispatch(putEventsAsync({ ...newEvent }, view.current, range.current));
@@ -51,13 +53,15 @@ export default ({ location }) => {
     const resourceIds = events
       .filter(_event => _event.id === event.id)
       .map(_event => _event.resourceId);
+    const color = events.find(_event => _event.id === event.id).color;
     const newEvent = {
       id: event.id,
       title: event.title,
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: event.allDay,
-      resourceIds
+      resourceIds,
+      color,
     }
     dispatch(putEvents({ ...newEvent }));
     dispatch(putEventsAsync({ ...newEvent }, view.current, range.current));
@@ -70,16 +74,15 @@ export default ({ location }) => {
       start: start.toISOString(),
       end: end.toISOString(),
       allDay: slots.length === 1,
-      resourceIds: [resourceId || 1]
+      resourceIds: [resourceId || 1],
+      color: null,
     }));
   }
   const handleDoubleClickEvent = ({ id, title, allDay, start, end }) => {
     const resourceIds = events
       .filter(event => event.id === id)
       .map(event => event.resourceId);
-    const color = events
-      .filter(event => event.id === id)
-      .map(event => event.color);
+    const color = events.find(event => event.id === id).color;
     dispatch(openEventDialog({
       isOpen: true,
       isNew: false,

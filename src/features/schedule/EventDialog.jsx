@@ -22,6 +22,7 @@ import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
+import { TwitterPicker } from 'react-color';
 
 const useStyles = makeStyles((theme) => ({
   controls: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     marginTop: 8,
+    marginBottom: 16,
   },
   chips: {
     display: 'flex',
@@ -73,6 +75,19 @@ function getStyles(resourceId, selectedResourceIds, theme) {
   };
 }
 
+const colors = [
+  '#FF6900',
+  '#FCB900',
+  '#7BDCB5',
+  '#00D084',
+  '#8ED1FC',
+  '#0693E3',
+  '#ABB8C3',
+  '#EB144C',
+  '#F78DA7',
+  '#9900EF'
+];
+
 export default ({ view, range }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -81,6 +96,7 @@ export default ({ view, range }) => {
   const [title, setTitle] = useState('');
   const [isDelete, setDelete] = useState(false);
   const [selectedResourceIds, setSelectedResourceIds] = useState([]);
+  const [color, setColor] = useState('');
   const { isOpen, isNew, id, start, end, allDay, resourceIds } = eventDialog;
   const handleChange = event => setSelectedResourceIds(event.target.value);
   const handleClose = () => dispatch(closeEventDialog());
@@ -96,7 +112,8 @@ export default ({ view, range }) => {
       start,
       end,
       allDay,
-      resourceIds: selectedResourceIds
+      resourceIds: selectedResourceIds,
+      color,
     }
     if (isNew) {
       dispatch(postEvents({ ...newEvent }));
@@ -121,6 +138,14 @@ export default ({ view, range }) => {
   useEffect(() => {
     setSelectedResourceIds(resourceIds);
   }, [resourceIds]);
+
+  useEffect(() => {
+    if (eventDialog.isNew) {
+      setColor(colors[Math.floor(colors.length * Math.random())]);
+    } else {
+      setColor(eventDialog.color);
+    }
+  }, [eventDialog])
 
   return (
     <Dialog
@@ -179,6 +204,11 @@ export default ({ view, range }) => {
             ))}
           </Select>
         </FormControl>
+        <TwitterPicker
+          width={552}
+          triangle="hide"
+          color={color}
+          onChangeComplete={color => setColor(color.hex)} />
       </DialogContent>
       <DialogActions className={classes.controls}>
         <div className={classes.flexLeft}>
