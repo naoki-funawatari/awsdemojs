@@ -123,13 +123,7 @@ export default ({ location }) => {
       selectable
       resizable
       resources={location.pathname === "/schedules" ? resources : null}
-      events={events
-        .filter(event => location.pathname === "/schedules" || event.resourceId === 1)
-        .map(event => ({
-          ...event,
-          start: new Date(event.start),
-          end: new Date(event.end)
-        }))}
+      events={createDisplayEvent(location.pathname, view.current, events)}
       onNavigate={handleNavigate}
       onRangeChange={handleRangeChange}
       onEventDrop={handleEventDrop}
@@ -140,4 +134,25 @@ export default ({ location }) => {
     />
     <EventDialog view={view.current} range={range.current} />
   </>);
+}
+
+const createDisplayEvent = (pathname, view, events) => {
+  let createDisplayEvent = events
+    .filter(event => pathname === "/schedules" || event.resourceId === 1);
+
+  if (['month', 'agenda'].includes(view)) {
+    createDisplayEvent = [...new Set(createDisplayEvent
+      .map(event => JSON.stringify({
+        ...event,
+        resourceId: null
+      })))]
+      .map(event => JSON.parse(event));
+  }
+
+  return createDisplayEvent
+    .map(event => ({
+      ...event,
+      start: new Date(event.start),
+      end: new Date(event.end)
+    }));;
 }
