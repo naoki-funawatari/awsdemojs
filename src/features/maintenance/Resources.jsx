@@ -9,7 +9,11 @@ import {
 import MaterialTable from 'material-table';
 
 const columns = [
-  { title: 'Title', field: 'title' },
+  {
+    title: 'Title',
+    field: 'title',
+    width: 250,
+  },
   {
     title: 'ResourceType',
     field: 'resource_type_id',
@@ -18,6 +22,7 @@ const columns = [
       2: 'room',
       3: 'device',
     },
+    width: 180,
   },
   { title: 'Remarks', field: 'remarks' },
 ];
