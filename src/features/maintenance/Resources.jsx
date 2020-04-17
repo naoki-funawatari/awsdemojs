@@ -10,7 +10,15 @@ import MaterialTable from 'material-table';
 
 const columns = [
   { title: 'Title', field: 'title' },
-  { title: 'ResourceType', field: 'resource_type_title' },
+  {
+    title: 'ResourceType',
+    field: 'resource_type_id',
+    lookup: {
+      1: 'person',
+      2: 'room',
+      3: 'device',
+    },
+  },
   { title: 'Remarks', field: 'remarks' },
 ];
 export default () => {
@@ -21,21 +29,20 @@ export default () => {
   }, [dispatch]);
 
   const handleRowAdd = async (newData) => {
-    await new Promise(resolve => setTimeout(resolve, 600));
-    console.log(newData)
     dispatch(postResources(newData));
     dispatch(postResourcesAsync(newData));
+    return await new Promise(resolve => setTimeout(resolve, 600));
   }
   const handleRowUpdate = async (newData, oldData) => {
-    await new Promise(resolve => setTimeout(resolve, 600));
-    if (!oldData) return;
+    if (!oldData) return await new Promise(resolve => setTimeout(resolve, 100));
     dispatch(putResources(newData));
     dispatch(putResourcesAsync(newData));
+    return await new Promise(resolve => setTimeout(resolve, 600));
   }
   const handleRowDelete = async (oldData) => {
-    await new Promise(resolve => setTimeout(resolve, 600));
     dispatch(deleteResources(oldData));
     dispatch(deleteResourcesAsync(oldData));
+    return await new Promise(resolve => setTimeout(resolve, 600));
   }
 
   return (
@@ -47,6 +54,12 @@ export default () => {
         onRowAdd: handleRowAdd,
         onRowUpdate: handleRowUpdate,
         onRowDelete: handleRowDelete,
+      }}
+      options={{
+        paging: false,
+        search: false,
+        sorting: false,
+        draggable: false,
       }}
     />
   );
