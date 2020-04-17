@@ -54,7 +54,9 @@ export default () => {
     <MaterialTable
       title="Editable Resources"
       columns={columns}
-      data={resources.map(resource => ({ ...resource }))}
+      data={resources
+        .filter(resource => resource.id !== 1)
+        .map(resource => ({ ...resource }))}
       editable={{
         onRowAdd: handleRowAdd,
         onRowUpdate: handleRowUpdate,
